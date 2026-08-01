@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Iceland 16–24 Aug 2026</title>
+<style>
+:root{
+  --bg:#0a0d10; --bg2:#11161b; --bg3:#182027; --bg4:#1f2932; --line:#2a353f;
+  --fg:#eef3f7; --fg2:#a8b6c2; --fg3:#71828f;
+  --accent:#4dd4ac; --warn:#ff6b6b; --gold:#ffc94d;
+  --hdrH:96px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4{margin:0;font-weight:650;line-height:1.25}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+.wrap{max-width:880px;margin:0 auto}
+
+/* ---------------- header ---------------- */
+header{position:sticky;top:0;z-index:40;background:rgba(10,13,16,.97);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.hdr{padding:10px 14px 0}
+.hdr h1{font-size:16.5px;letter-spacing:.01em}
+.hdr .sub{font-size:11.5px;color:var(--fg3);margin-top:2px}
+nav{display:flex;gap:2px;overflow-x:auto;padding:6px 10px 0;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;padding:9px 13px;font-size:13.5px;font-weight:600;color:var(--fg3);
+  border-bottom:2.5px solid transparent;white-space:nowrap;min-height:44px;position:relative}
+nav button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+nav .pill{display:inline-block;margin-left:6px;font-size:10px;font-weight:800;
+  background:var(--bg3);color:var(--fg3);border-radius:20px;padding:1px 6px;vertical-align:1px}
+
+main{padding:0 12px 96px}
+section[hidden]{display:none}
+section{padding-top:12px}
+
+/* ---------------- day chips ---------------- */
+.chipwrap{position:sticky;top:var(--hdrH);z-index:30;background:var(--bg);
+  margin:0 -12px;padding:8px 0 6px;border-bottom:1px solid var(--line)}
+.chiprow{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:0 12px 2px}
+.chiprow::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;min-width:64px;min-height:54px;padding:7px 11px;border-radius:12px;
+  background:var(--bg2);border:1px solid var(--line);text-align:center;line-height:1.15;position:relative}
+.chip .n{font-size:13px;font-weight:750;display:block}
+.chip .dt{font-size:10.5px;color:var(--fg3);display:block;margin-top:3px;letter-spacing:.01em}
+.chip[aria-pressed="true"]{background:var(--bg4);box-shadow:inset 0 0 0 1.5px currentColor}
+.chip.all{color:var(--fg)}
+.chip .today{position:absolute;top:-6px;right:-4px;font-size:8.5px;font-weight:800;
+  letter-spacing:.06em;background:var(--accent);color:#062119;border-radius:20px;padding:1px 5px}
+
+/* ---------------- day nav + summary ---------------- */
+.daynav{display:flex;align-items:stretch;gap:8px;margin:10px 0}
+.daynav .arrow{width:46px;flex:0 0 auto;border-radius:11px;background:var(--bg2);
+  border:1px solid var(--line);font-size:17px;color:var(--fg2);display:flex;
+  align-items:center;justify-content:center}
+.daynav .arrow:disabled{opacity:.32}
+.sumtitle{flex:1;min-width:0;font-size:13px;color:var(--fg2);padding:9px 12px;background:var(--bg2);
+  border:1px solid var(--line);border-radius:11px;display:flex;align-items:center}
+.sumtitle b{color:var(--fg)}
+.sumbar{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:11px;overflow:hidden;margin-bottom:10px}
+@media(min-width:560px){.sumbar{grid-template-columns:repeat(4,1fr)}}
+.sumcell{background:var(--bg2);padding:9px 11px}
+.sumcell .k{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--fg3)}
+.sumcell .v{font-size:13.5px;font-weight:650;margin-top:2px}
+
+/* ---------------- segmented filter ---------------- */
+.seg{display:flex;gap:2px;background:var(--bg2);border:1px solid var(--line);
+  border-radius:11px;padding:3px;margin-bottom:10px}
+.seg button{flex:1;min-height:40px;border-radius:8px;font-size:12.5px;font-weight:650;
+  color:var(--fg3);padding:0 6px}
+.seg button[aria-pressed="true"]{background:var(--bg4);color:var(--fg)}
+
+/* ---------------- map ---------------- */
+.mapwrap{position:relative;background:#060a0d;border:1px solid var(--line);
+  border-radius:14px;overflow:hidden;touch-action:none}
+svg.map{display:block;width:100%;height:auto;aspect-ratio:1000/720}
+.zoomctl{position:absolute;right:8px;bottom:8px;display:flex;flex-direction:column;gap:6px}
+.zoomctl button{width:44px;height:44px;border-radius:11px;background:rgba(17,22,27,.93);
+  border:1px solid var(--line);font-size:19px;font-weight:700;display:flex;
+  align-items:center;justify-content:center;line-height:1;color:var(--fg2)}
+.zoomctl button.rst{font-size:10.5px;font-weight:800;letter-spacing:.04em}
+.maphint{position:absolute;left:9px;top:9px;right:60px;font-size:10.5px;color:var(--fg3);
+  background:rgba(10,13,16,.8);padding:5px 9px;border-radius:8px;pointer-events:none}
+
+.landfill{fill:#1a2631;stroke:#41576a;stroke-width:1.4;stroke-linejoin:round}
+.glacier{fill:#25384a;stroke:#41576a;stroke-width:.8}
+.lake{fill:#14222d;stroke:#41576a;stroke-width:.8}
+.townlbl{fill:#9db0c0;font-weight:700;stroke-linejoin:round;pointer-events:none}
+.townlbl.halo{stroke-linecap:round}
+.towndot{fill:#8ea4b5}
+.stoplbl{fill:#e9f0f6;font-weight:650;stroke-linejoin:round;pointer-events:none}
+.stoplbl.halo{stroke-linecap:round}
+.stoplbl .num{fill:#93a4b2}
+.stoplbl.halo .num{fill:none}
+.route{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pinhit{fill:transparent;cursor:pointer}
+.leader{stroke:#5d707f;stroke-width:1.2;fill:none}
+
+/* ---------------- legend ---------------- */
+.legend{margin-top:10px;font-size:11.5px;color:var(--fg2)}
+.legrow{display:flex;flex-wrap:wrap;gap:8px 15px;align-items:center}
+.legrow span{display:flex;align-items:center;gap:6px}
+details.iconkey{margin-top:9px;background:var(--bg2);border:1px solid var(--line);border-radius:11px}
+details.iconkey summary{padding:11px 13px;font-size:12.5px;font-weight:650;color:var(--fg2);
+  cursor:pointer;min-height:44px;display:flex;align-items:center;list-style:none}
+details.iconkey summary::-webkit-details-marker{display:none}
+details.iconkey summary::after{content:"▾";margin-left:auto;color:var(--fg3)}
+details.iconkey[open] summary::after{content:"▴"}
+.iconlist{display:grid;grid-template-columns:repeat(2,1fr);gap:7px 12px;padding:0 13px 13px}
+@media(min-width:520px){.iconlist{grid-template-columns:repeat(3,1fr)}}
+.iconlist div{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--fg2)}
+
+/* ---------------- stop list ---------------- */
+.stoplist{margin-top:12px}
+.slrow{display:flex;gap:11px;align-items:center;width:100%;text-align:left;
+  padding:11px 12px;min-height:56px;border-bottom:1px solid #1a232b}
+.slrow:last-child{border-bottom:0}
+.slrow .ico{flex:0 0 auto;width:32px;height:32px;border-radius:9px;display:flex;
+  align-items:center;justify-content:center}
+.slrow .txt{flex:1;min-width:0}
+.slrow .txt .a{font-size:14px;font-weight:650}
+.slrow .txt .b{font-size:11.5px;color:var(--fg3);margin-top:1px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slrow .rt{flex:0 0 auto;font-size:11px;color:var(--fg2);text-align:right;max-width:96px}
+.slrow .rt .free{color:var(--accent);font-weight:750}
+
+/* ---------------- sheet ---------------- */
+.scrim{position:fixed;inset:0;z-index:55;background:rgba(4,7,9,.55)}
+.scrim[hidden]{display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bg2);
+  border-top:1px solid var(--line);border-radius:18px 18px 0 0;
+  max-height:78vh;overflow-y:auto;box-shadow:0 -14px 44px rgba(0,0,0,.65);
+  padding:8px 16px calc(22px + env(safe-area-inset-bottom))}
+.sheet[hidden]{display:none}
+@media(min-width:880px){
+  .scrim{display:none!important}
+  .sheet{left:auto;right:24px;bottom:24px;width:410px;max-height:74vh;
+    border-radius:16px;border:1px solid var(--line)}
+}
+.grab{width:38px;height:4px;border-radius:4px;background:#394855;margin:2px auto 10px}
+@media(min-width:880px){.grab{display:none}}
+.sheet .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sheet h3{font-size:17px;margin-top:8px}
+.sheet .close{width:42px;height:42px;border-radius:11px;background:var(--bg3);
+  font-size:21px;line-height:1;flex:0 0 auto}
+.shico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;
+  justify-content:center;flex:0 0 auto}
+.badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;padding:3px 8px;border-radius:6px;background:var(--bg3)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:13px 0;font-size:13.5px}
+.kv dt{color:var(--fg3);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.kv dd{margin:0}
+.free{color:var(--accent);font-weight:700}
+.tip{font-size:13.5px;color:var(--fg2);border-left:2.5px solid var(--line);
+  padding:1px 0 1px 11px;margin:9px 0}
+.tip.danger{border-left-color:var(--warn)}
+.tip.danger b{color:var(--warn)}
+.sheetnav{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.sheetnav button{flex:1;min-height:46px;border-radius:11px;background:var(--bg3);
+  border:1px solid var(--line);font-size:12.5px;font-weight:650;color:var(--fg2);
+  padding:0 8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sheetnav button:disabled{opacity:.3}
+
+/* ---------------- cards ---------------- */
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.card>.hd{width:100%;display:flex;align-items:center;gap:11px;padding:13px;text-align:left;min-height:58px}
+.card>.hd .bar{width:4px;align-self:stretch;border-radius:3px;flex:0 0 auto}
+.card>.hd .t{flex:1;min-width:0}
+.card>.hd .t .a{font-size:14.5px;font-weight:700}
+.card>.hd .t .b{font-size:11.5px;color:var(--fg3);margin-top:2px}
+.card>.hd .caret{color:var(--fg3);font-size:13px;transition:transform .15s}
+.card[data-open="1"]>.hd .caret{transform:rotate(90deg)}
+.card>.bd{padding:12px 13px 13px;border-top:1px solid var(--line)}
+.card>.bd[hidden]{display:none}
+.linkbtn{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:0 14px;
+  border-radius:10px;background:var(--bg3);border:1px solid var(--line);
+  font-size:12.5px;font-weight:650;color:var(--accent);margin-top:10px}
+.toolbar{display:flex;gap:8px;margin-bottom:10px}
+.toolbar button{flex:1;min-height:42px;border-radius:10px;background:var(--bg2);
+  border:1px solid var(--line);font-size:12.5px;font-weight:650;color:var(--fg2)}
+
+h2.sect{font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--fg3);margin:22px 0 9px}
+h2.sect:first-child{margin-top:2px}
+p.lead{font-size:13.5px;color:var(--fg2);margin:0 0 12px}
+
+/* ---------------- checklists ---------------- */
+.chk{display:flex;gap:12px;align-items:flex-start;padding:11px 12px;min-height:50px;
+  border-bottom:1px solid #1a232b;font-size:14px;width:100%;text-align:left}
+.chk:last-child{border-bottom:0}
+.chk .box{flex:0 0 auto;width:24px;height:24px;border-radius:7px;border:2px solid #3c4b58;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  font-weight:800;color:transparent;margin-top:1px}
+.chk[aria-checked="true"] .box{background:var(--accent);border-color:var(--accent);color:#06231b}
+.chk[aria-checked="true"] .lb{color:var(--fg3);text-decoration:line-through}
+.chk[aria-checked="true"] .lb em{text-decoration:none}
+.chk .lb{flex:1;min-width:0}
+.chk .lb em{font-style:normal;display:block;font-size:12px;color:var(--fg3);margin-top:2px}
+.chk .pri{flex:0 0 auto;width:23px;height:23px;border-radius:6px;background:var(--bg3);
+  color:var(--fg2);font-size:11.5px;font-weight:800;display:flex;align-items:center;
+  justify-content:center;margin-top:1px}
+.pbar{display:flex;align-items:center;gap:10px;margin:0 2px 10px}
+.pbar .track{flex:1;height:6px;border-radius:6px;background:var(--bg3);overflow:hidden}
+.pbar .fill{height:100%;background:var(--accent);border-radius:6px;transition:width .2s}
+.pbar .lbl{font-size:11.5px;color:var(--fg3);flex:0 0 auto;font-variant-numeric:tabular-nums}
+.pbar .rst{font-size:11.5px;color:var(--fg3);text-decoration:underline;
+  min-height:40px;padding:0 4px;flex:0 0 auto}
+
+/* ---------------- info ---------------- */
+.info h3{font-size:14.5px;margin:16px 0 6px}
+.info p,.info li{font-size:13.5px;color:var(--fg2);margin:6px 0}
+.info ul{margin:6px 0;padding-left:19px}
+.info li::marker{color:var(--fg3)}
+.info strong{color:var(--fg)}
+.callout{background:var(--bg3);border:1px solid var(--line);border-left:3px solid var(--warn);
+  border-radius:10px;padding:12px 13px;margin:12px 0}
+.callout h4{font-size:13.5px;color:var(--warn);margin-bottom:5px}
+.callout.ok{border-left-color:var(--accent)}
+.callout.ok h4{color:var(--accent)}
+.callout p{margin:5px 0;font-size:13.5px;color:var(--fg2)}
+.lights{display:flex;gap:8px;margin:9px 0}
+.lights b{flex:1;text-align:center;font-size:11.5px;padding:8px 4px;border-radius:8px;font-weight:750}
+.foot{font-size:11px;color:#4a5966;text-align:center;padding:24px 10px 8px;line-height:1.65}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header id="hdr">
+  <div class="hdr">
+    <h1>Iceland · Ring Road + Snæfellsnes</h1>
+    <div class="sub">16–24 Aug 2026 · Ale, Alan &amp; Richie · camper 16–22, Reykjavík 22–24</div>
+  </div>
+  <nav role="tablist" id="nav">
+    <button role="tab" data-tab="map" aria-selected="true">Map</button>
+    <button role="tab" data-tab="itin" aria-selected="false">Itinerary</button>
+    <button role="tab" data-tab="book" aria-selected="false">Book now<span class="pill" id="pBook"></span></button>
+    <button role="tab" data-tab="pack" aria-selected="false">Packing<span class="pill" id="pPack"></span></button>
+    <button role="tab" data-tab="info" aria-selected="false">Need to know</button>
+  </nav>
+</header>
+
+<main>
+  <section id="tab-map">
+    <div class="chipwrap"><div class="chiprow" id="chips"></div></div>
+    <div class="daynav">
+      <button class="arrow" id="prevDay" aria-label="Previous day">‹</button>
+      <div class="sumtitle" id="sumtitle"></div>
+      <button class="arrow" id="nextDay" aria-label="Next day">›</button>
+    </div>
+    <div class="sumbar" id="sumbar"></div>
+    <div class="seg" role="group" aria-label="Filter stops">
+      <button data-f="all" aria-pressed="true">All stops</button>
+      <button data-f="camp" aria-pressed="false">Campsites</button>
+      <button data-f="photo" aria-pressed="false">Photo spots</button>
+    </div>
+    <div class="mapwrap" id="mapwrap">
+      <div class="maphint" id="maphint"></div>
+      <svg class="map" id="svg" viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg"
+           role="img" aria-label="Map of Iceland showing the driving route and stops">
+        <g id="cam"><g id="base"></g><g id="pins"></g></g>
+      </svg>
+      <div class="zoomctl">
+        <button id="zin" aria-label="Zoom in">+</button>
+        <button id="zout" aria-label="Zoom out">−</button>
+        <button id="zrst" class="rst" aria-label="Reset view">FIT</button>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="legrow" id="legend"></div>
+      <details class="iconkey">
+        <summary>Icon key — what each symbol means</summary>
+        <div class="iconlist" id="iconlist"></div>
+      </details>
+    </div>
+    <div class="stoplist" id="stoplist"></div>
+  </section>
+
+  <section id="tab-itin" hidden></section>
+  <section id="tab-book" hidden></section>
+  <section id="tab-pack" hidden></section>
+  <section id="tab-info" hidden></section>
+</main>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Stop details" tabindex="-1"></div>
+
+<div class="foot">
+  Built from <em>Iceland — 16–24 August 2026, Refined camper itinerary</em>.<br>
+  Fully offline: no network requests, no external assets. Checkbox state lasts for this browser session only.
+</div>
+</div>
+
+<script>
+"use strict";
+/* ============================================================
+   1 · PROJECTION
+   Equirectangular over bbox lat 63.2–66.6 N, lon 24.6–13.4 W
+   x-scale correction cos(65°) ≈ 0.4226
+   ============================================================ */
+var LON0=-24.6, LON1=-13.4, LAT0=63.2, LAT1=66.6;
+var KX=Math.cos(65*Math.PI/180);
+var W=1000, PADX=18, PADY=14;
+var SX=(W-2*PADX)/((LON1-LON0)*KX);
+var H=Math.round((LAT1-LAT0)*SX+2*PADY);          /* 720 */
+function px(lon){ return PADX+(lon-LON0)*KX*SX; }
+function py(lat){ return PADY+(LAT1-lat)*SX; }
+function P(c){ return px(c[0])+","+py(c[1]); }
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+
+/* ============================================================
+   2 · ICONS  (24×24 box, stroke unless fill:1)
+   ============================================================ */
+var ICONS={
+plane:{n:"Airport",fill:1,d:"M12 2 L13.6 9.6 L22 12.6 L22 14.6 L13.6 13.2 L13.2 18.8 L16.6 20.8 L16.6 22 L12 21 L7.4 22 L7.4 20.8 L10.8 18.8 L10.4 13.2 L2 14.6 L2 12.6 L10.4 9.6 Z"},
+waterfall:{n:"Waterfall",d:"M7 3 L7 13 M12 2 L12 14 M17 3 L17 13 M3 18 C6 15.5 9 20 12 17.5 C15 15 18 20 21 17.5 M3 21.5 C6 19 9 23.5 12 21 C15 18.5 18 23 21 20.5"},
+tent:{n:"Campsite",d:"M12 3 L21.5 20.5 L2.5 20.5 Z M12 3 L12 20.5 M8 20.5 L12 13 L16 20.5"},
+beach:{n:"Black sand beach",d:"M12 6.5 m-3.2 0 a3.2 3.2 0 1 0 6.4 0 a3.2 3.2 0 1 0 -6.4 0 M2.5 15 C5.7 12.4 8.8 17.6 12 15 C15.2 12.4 18.3 17.6 21.5 15 M2.5 20 C5.7 17.4 8.8 22.6 12 20 C15.2 17.4 18.3 22.6 21.5 20"},
+arch:{n:"Headland / arch",d:"M2 21.5 L22 21.5 M4.5 21.5 L4.5 13.5 A6.2 6.2 0 0 1 16.9 13.5 L16.9 21.5 M19.6 21.5 L19.6 10"},
+iceberg:{n:"Glacier lagoon",d:"M12 3 L19.5 15.5 L4.5 15.5 Z M9 9.5 L14 9.5 M2 19 C5 16.6 8 21.4 11 19 C14 16.6 17.5 21.4 22 19"},
+canyon:{n:"Canyon",d:"M4 2 L8 12 L6 22 M20 2 L16 12 L18 22 M12 9 L12 22 M12 9 L10 5 M12 9 L14 5"},
+mountain:{n:"Mountain",d:"M2 20.5 L9 6.5 L13.2 13.5 L16.2 8.8 L22 20.5 Z M6.4 12 L11.6 12 M14.3 12.6 L18.1 12.6"},
+town:{n:"Town",d:"M2 21.5 L22 21.5 M3.5 21.5 L3.5 11 L9 11 L9 21.5 M9 21.5 L9 5.5 L15 5.5 L15 21.5 M15 21.5 L15 13 L20.5 13 L20.5 21.5 M5.5 14.5 L7 14.5 M11 9 L13 9 M11 14.5 L13 14.5 M17 16.5 L18.5 16.5"},
+church:{n:"Church / village",d:"M12 1.5 L12 6.5 M9.8 3.8 L14.2 3.8 M12 6.5 L19 12.5 L19 21.5 L5 21.5 L5 12.5 Z M10 21.5 L10 16 L14 16 L14 21.5 M12 9.3 L12 13 M10.5 11.1 L13.5 11.1"},
+geothermal:{n:"Geothermal area",d:"M6 21.5 C6 17.5 9 17.5 9 13.5 C9 10.2 6 10.2 6 6.8 M12 21.5 C12 16.5 15 16.5 15 11.5 C15 7.2 12 7.2 12 3.2 M18 21.5 C18 17.5 21 17.5 21 13.5 C21 10.2 18 10.2 18 6.8"},
+cave:{n:"Lava cave",d:"M2.5 21.5 L2.5 14 A9.5 9.5 0 0 1 21.5 14 L21.5 21.5 M8.5 21.5 L8.5 17.5 A3.5 3.5 0 0 1 15.5 17.5 L15.5 21.5"},
+lava:{n:"Lava formations",d:"M2 21.5 L22 21.5 M4 21.5 L4 12 L7 7.5 L10 12 L10 21.5 M13.5 21.5 L13.5 10 L17 4.5 L20.5 10 L20.5 21.5"},
+crater:{n:"Volcanic crater",d:"M2.5 20.5 L8.8 7 M15.2 7 L21.5 20.5 M2.5 20.5 L21.5 20.5 M8.8 7 a3.2 1.7 0 1 0 6.4 0 a3.2 1.7 0 1 0 -6.4 0"},
+bath:{n:"Geothermal baths",d:"M6 8.5 C6 5.5 8 5.5 8 2.5 M12 8.5 C12 5.5 14 5.5 14 2.5 M18 8.5 C18 5.5 20 5.5 20 2.5 M2.5 12.5 L21.5 12.5 L21.5 16.5 A5 4.5 0 0 1 16.5 21.5 L7.5 21.5 A5 4.5 0 0 1 2.5 16.5 Z"},
+whale:{n:"Whale watching",d:"M2 13.5 C5 7 13.5 5.5 18.5 10 M18.5 10 L22 4.5 L22 13.5 M22 13.5 C20 18.5 12 20.5 6 17.5 C4 16.5 2.6 15 2 13.5 Z M7.6 11.8 L7.7 11.8"},
+paw:{n:"Wildlife colony",fill:1,d:"M8 8 m-2.1 0 a2.1 2.6 0 1 0 4.2 0 a2.1 2.6 0 1 0 -4.2 0 M16 8 m-2.1 0 a2.1 2.6 0 1 0 4.2 0 a2.1 2.6 0 1 0 -4.2 0 M4.3 13.8 m-1.9 0 a1.9 2.3 0 1 0 3.8 0 a1.9 2.3 0 1 0 -3.8 0 M19.7 13.8 m-1.9 0 a1.9 2.3 0 1 0 3.8 0 a1.9 2.3 0 1 0 -3.8 0 M12 21.5 C8 21.5 6.3 18.5 7.9 15.9 C9.5 13.3 14.5 13.3 16.1 15.9 C17.7 18.5 16 21.5 12 21.5 Z"},
+seastack:{n:"Sea stacks",d:"M2 21.5 L22 21.5 M4 21.5 L7 5.5 L10 21.5 M13.5 21.5 L16 10 L18.5 21.5 M5.7 13 L8.3 13"},
+fuel:{n:"Fuel &amp; shop",d:"M3 21.5 L3 4.5 A2 2 0 0 1 5 2.5 L11 2.5 A2 2 0 0 1 13 4.5 L13 21.5 M1.5 21.5 L14.5 21.5 M3 10 L13 10 M13 8 L16.5 8 L16.5 16.5 A2.2 2.2 0 0 0 20.9 16.5 L20.9 9 L18.2 6.3"},
+van:{n:"Camper depot",d:"M2 17.5 L2 7.5 L14 7.5 L14 17.5 M14 11 L17.8 11 L21.5 14.5 L21.5 17.5 M2 17.5 L21.5 17.5 M4.5 9 L4.5 12.8 L11.5 12.8 L11.5 9 M6 17.5 a2.1 2.1 0 1 0 4.2 0 a2.1 2.1 0 1 0 -4.2 0 M15.6 17.5 a2.1 2.1 0 1 0 4.2 0 a2.1 2.1 0 1 0 -4.2 0"},
+house:{n:"Airbnb",d:"M2.5 11.5 L12 3 L21.5 11.5 M5 9.3 L5 21.5 L19 21.5 L19 9.3 M9.7 21.5 L9.7 14.5 L14.3 14.5 L14.3 21.5 M16 5.5 L16 3 L18.5 3 L18.5 7.7"},
+fireworks:{n:"Festival",d:"M12 12 L12 2.5 M12 12 L21.5 12 M12 12 L12 21.5 M12 12 L2.5 12 M12 12 L18.7 5.3 M12 12 L5.3 5.3 M12 12 L18.7 18.7 M12 12 L5.3 18.7"},
+rift:{n:"Rift / national park",d:"M8.5 2 L8.5 22 M15.5 2 L15.5 22 M6.5 12 L2 12 M2 12 L4.2 9.8 M2 12 L4.2 14.2 M17.5 12 L22 12 M22 12 L19.8 9.8 M22 12 L19.8 14.2"},
+bus:{n:"Bus terminal",d:"M4 2.5 L20 2.5 L20 17 L4 17 Z M4 8 L20 8 M12 2.5 L12 8 M7 17 L7 20 M17 17 L17 20 M6.8 20 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0 M13.6 20 a1.8 1.8 0 1 0 3.6 0 a1.8 1.8 0 1 0 -3.6 0 M6.5 12.5 L9 12.5 M15 12.5 L17.5 12.5"}
+};
+function iconG(kind,x,y,size,colour){
+  var ic=ICONS[kind]; if(!ic) return "";
+  var s=size/24, tx=x-12*s, ty=y-12*s;
+  return '<g transform="translate('+tx+','+ty+') scale('+s+')" '+
+    (ic.fill?'fill="'+colour+'" stroke="none"':'fill="none" stroke="'+colour+
+    '" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"')+
+    '><path d="'+ic.d+'"/></g>';
+}
+function iconChip(kind,colour,boxpx){
+  var b=boxpx||24;
+  return '<svg width="'+b+'" height="'+b+'" viewBox="0 0 '+b+' '+b+'" aria-hidden="true">'+
+    iconG(kind,b/2,b/2,b*0.82,colour)+'</svg>';
+}
+
+/* ============================================================
+   3 · COASTLINE
+   ============================================================ */
+var COAST=[
+[-22.71,63.82],[-22.5,63.85],[-22.28,63.845],[-22,63.86],[-21.72,63.875],[-21.5,63.86],
+[-21.37,63.865],[-21.15,63.875],[-20.98,63.9],[-20.75,63.86],[-20.5,63.72],[-20.3,63.62],
+[-20.12,63.55],[-19.9,63.52],[-19.65,63.49],[-19.4,63.45],[-19.2,63.4],[-19.14,63.385],
+[-19.02,63.388],[-18.9,63.4],[-18.6,63.4],[-18.3,63.41],[-18,63.43],[-17.7,63.52],
+[-17.4,63.62],[-17.1,63.71],[-16.85,63.78],[-16.6,63.87],[-16.35,63.94],[-16.1,64.02],
+[-15.85,64.09],[-15.6,64.15],[-15.3,64.22],[-15.15,64.25],[-14.96,64.23],[-14.72,64.32],
+[-14.55,64.42],[-14.42,64.55],[-14.3,64.64],[-14.62,64.71],[-14.22,64.75],[-14.4,64.795],
+[-13.98,64.82],[-14.08,64.855],[-13.85,64.895],[-14.06,64.93],[-13.72,64.945],[-14.26,65.02],
+[-13.6,65.06],[-13.49,65.09],[-13.97,65.14],[-13.66,65.165],[-13.9,65.2],[-13.58,65.26],
+[-14.03,65.285],[-13.72,65.315],[-14.08,65.375],[-13.8,65.47],[-13.72,65.55],[-14.05,65.61],
+[-14.35,65.68],[-14.42,65.86],[-14.55,66],[-14.95,66.05],[-15.15,66.13],[-14.85,66.24],
+[-14.53,66.36],[-15.05,66.22],[-15.34,66.19],[-15.58,66.24],[-15.9,66.32],[-16,66.45],
+[-16.15,66.53],[-16.4,66.5],[-16.52,66.38],[-16.55,66.14],[-16.75,66.03],[-16.95,66.08],
+[-17.1,66.2],[-17.28,66.12],[-17.34,66.06],[-17.52,65.92],[-17.62,65.86],[-17.8,65.95],
+[-17.98,66.13],[-18.12,65.98],[-18.2,65.8],[-18.09,65.66],[-18.3,65.8],[-18.42,65.98],
+[-18.5,66.1],[-18.65,66.2],[-18.85,66.2],[-18.98,66.13],[-19.1,66.06],[-19.28,65.98],
+[-19.45,65.84],[-19.62,65.75],[-19.85,65.86],[-20.1,66.02],[-20.22,66.13],[-20.42,66.1],
+[-20.48,65.92],[-20.36,65.78],[-20.28,65.68],[-20.5,65.6],[-20.62,65.68],[-20.72,65.72],
+[-20.84,65.66],[-20.92,65.54],[-20.98,65.44],[-21.08,65.52],[-21.16,65.44],[-21.06,65.26],
+[-21.24,65.44],[-21.36,65.56],[-21.5,65.6],[-21.62,65.55],[-21.7,65.7],[-21.85,65.86],
+[-21.98,66.06],[-22.2,66.24],[-22.42,66.45],[-22.78,66.4],[-23.15,66.34],[-23.28,66.22],
+[-23.42,66.26],[-23.1,66.14],[-22.62,65.99],[-22.25,65.83],[-22.62,65.96],[-23,66.05],
+[-23.13,66.04],[-23.42,66.05],[-23.62,66.11],[-23.82,66.01],[-23.64,65.95],[-23.88,65.92],
+[-23.63,65.85],[-23.97,65.85],[-23.58,65.72],[-24.06,65.72],[-24.2,65.63],[-23.94,65.6],
+[-24.3,65.55],[-24.53,65.5],[-24.15,65.45],[-23.8,65.48],[-23.45,65.42],[-23.1,65.48],
+[-22.75,65.42],[-22.4,65.48],[-22.1,65.4],[-21.85,65.3],[-21.75,65.18],[-21.92,65.1],
+[-22.15,65.08],[-22.45,65.02],[-22.73,65.06],[-23,64.98],[-23.27,64.93],[-23.55,64.92],
+[-23.71,64.9],[-23.92,64.92],[-24.05,64.86],[-23.99,64.765],[-23.91,64.738],[-23.8,64.72],
+[-23.62,64.755],[-23.38,64.805],[-23.09,64.782],[-22.8,64.78],[-22.5,64.75],[-22.3,64.7],
+[-22.1,64.62],[-21.95,64.54],[-21.78,64.5],[-21.65,64.45],[-21.42,64.38],[-21.7,64.34],
+[-21.95,64.33],[-22.09,64.31],[-22.05,64.22],[-22.02,64.17],[-22,64.1],[-22.12,64.03],
+[-22.42,64.03],[-22.57,64],[-22.69,64.06],[-22.73,63.94]
+];
+var VATNAJOKULL=[[-17.5,64.38],[-17.2,64.58],[-16.85,64.7],[-16.45,64.72],[-16.05,64.66],[-15.72,64.52],[-15.58,64.36],[-15.9,64.24],[-16.35,64.17],[-16.85,64.16],[-17.25,64.22]];
+var MYVATN=[[-17.12,65.64],[-17,65.655],[-16.95,65.6],[-17,65.55],[-17.11,65.57]];
+
+/* ============================================================
+   4 · DAYS + STOPS
+   type: sight | camp | town | airbnb   ·   k: icon kind
+   ============================================================ */
+var DAYS=[
+{n:1,date:"Sun 16 Aug",iso:"2026-08-16",title:"South Coast",leg:"KEF → Vík",km:"~250 km",drive:"3h15",
+ sleep:"Vík Camping",sunset:"~21:30",hex:"#ff6b6b",
+ notes:[
+  "Cheapest shop of the whole trip is before you leave Keflavík — Bónus in Njarðvík or Krónan in Reykjanesbær. Food gets meaningfully more expensive the further east you go.",
+  "Vínbúðin is the <em>only</em> place to buy real alcohol; supermarket \"beer\" is 2.25% alcohol-free lookalike. There's one in Keflavík — Sunday hours are limited.",
+  "<b>Skip Sólheimasandur.</b> The DC-3 wreck is a 4 km walk each way across flat black gravel with no view, or 2,900 ISK each for the shuttle. Most over-rated stop on the south coast; it eats 2 hours you don't have on arrival day."],
+ route:[[-22.605,63.985],[-21.94,64.09],[-21.19,64.00],[-20.99,63.93],[-20.22,63.75],
+   [-19.989,63.616],[-19.511,63.532],[-19.126,63.402],[-19.045,63.403],[-19.006,63.419]],
+ stops:[
+  {name:"Keflavík airport",short:"KEF",lon:-22.605,lat:63.985,type:"town",k:"plane",svc:true,time:"Land 09:30",
+   what:"Arrival. Camper picked up, shopping done, on the road by ~10:45.",cost:"—",
+   tips:["Do your big stock-up here: Bónus Njarðvík or Krónan Reykjanesbær — the cheapest shop of the trip.",
+     "Vínbúðin in Keflavík for beer or wine. Limited Sunday hours — check before you count on it.",
+     "Get a fuel discount card (Orkan / Olís / N1) at your first fill. Free, and saves a few ISK per litre over ~700 litres."]},
+  {name:"Seljalandsfoss",lon:-19.989,lat:63.616,type:"sight",k:"waterfall",photo:true,time:"13:00 · 1h15",
+   what:"Waterfall you can walk behind, plus Gljúfrabúi hidden in its slot canyon next door.",cost:"FREE",
+   tips:["Spray at every waterfall — bring lens cloths and a small dry bag for phones."]},
+  {name:"Skógafoss",lon:-19.511,lat:63.532,type:"sight",k:"waterfall",photo:true,time:"14:30 · 45 min",
+   what:"60 m curtain waterfall straight off the old sea cliff.",cost:"FREE",
+   tips:["Small dry bag for phones — the spray reaches a long way back.",
+     "Seljavallalaug hot spring is near here: free, unmaintained, chilly, a 20 min walk, wonderful."]},
+  {name:"Dyrhólaey",lon:-19.126,lat:63.402,type:"sight",k:"arch",time:"16:00 · 45 min",
+   what:"Sea arch and headland above the black coast.",cost:"FREE",
+   tips:["<b>No puffins.</b> They typically leave Dyrhólaey by late July / early August. Expect none on 16 Aug.",
+     "Never fly a drone near birds or in national parks. Iceland is strict and enforcement has tightened."]},
+  {name:"Reynisfjara",lon:-19.045,lat:63.403,type:"sight",k:"beach",time:"17:15 · 45 min",
+   what:"Black sand beach with basalt columns and the Reynisdrangar sea stacks.",cost:"FREE",
+   danger:"Six people have died here since 2013, most recently a 9-year-old in August 2025. Sneaker waves arrive without warning, on calm days, and much further up the beach than the previous fifty waves did.",
+   lights:true,
+   tips:["Obey the flashing warning-light system in the car park: green / yellow / red.",
+     "Never turn your back on the water. Don't cross the marked line for a photo — the basalt columns at the back of the beach are the shot anyway."]},
+  {name:"Vík",lon:-19.006,lat:63.419,type:"camp",k:"tent",svc:true,time:"18:30",
+   what:"Camp, dinner, supermarket. Vík Camping: big, central, showers, walk to town.",cost:"~2,000–3,500 ISK pp",
+   tips:["No booking — arrive by ~19:00 in high season.",
+     "Sand &amp; Ash Protection matters around here: a sandstorm can strip the paint off a vehicle in minutes."]}
+ ]},
+
+{n:2,date:"Mon 17 Aug",iso:"2026-08-17",title:"Glaciers &amp; icebergs",leg:"Vík → Höfn",km:"~280 km",drive:"3h45",
+ sleep:"Höfn campsite",sunset:"~21:26",hex:"#ff9f43",
+ notes:[
+  "<b>Keep your Skaftafell parking receipt</b> — it gives 50% off parking anywhere else in Vatnajökull National Park the same day, including Jökulsárlón.",
+  "Zodiac seats at Jökulsárlón are limited and sell out in August. <b>Book now</b>, not on the day. Both boat types run May–Oct from the main car park on Route 1."],
+ route:[[-19.006,63.419],[-18.60,63.46],[-18.172,63.771],[-18.06,63.79],[-17.30,63.80],
+   [-16.975,64.017],[-16.383,64.012],[-16.231,64.078],[-16.178,64.043],[-15.55,64.20],
+   [-15.208,64.254],[-14.993,64.247]],
+ stops:[
+  {name:"Fjaðrárgljúfur",lon:-18.172,lat:63.771,type:"sight",k:"canyon",photo:true,time:"45 min",
+   what:"Mossy 100 m canyon with an easy rim walk.",cost:"FREE",tips:["Spectacular, and short. Easy rim walk."]},
+  {name:"Skaftafell / Svartifoss",short:"Skaftafell",lon:-16.975,lat:64.017,type:"sight",k:"waterfall",time:"2h",
+   what:"Vatnajökull National Park. Svartifoss falls over black basalt columns.",cost:"Parking 1,040 ISK",
+   tips:["1.5 km uphill each way to Svartifoss.",
+     "<b>Keep the parking receipt</b> — 50% off parking elsewhere in Vatnajökull NP the same day, including Jökulsárlón.",
+     "The Parka app pays parking at Skaftafell, Jökulsárlón and several other sites."]},
+  {name:"Jökulsárlón",lon:-16.231,lat:64.078,type:"sight",k:"iceberg",photo:true,time:"1.5h · the main event",
+   what:"Glacier lagoon. Calves all summer; August water is deep turquoise and seals are common.",
+   cost:"Free to walk · boats extra",
+   tips:["<b>Amphibian boat</b> ~7,900 ISK adult — big, slow, 30–40 min, wheelchair-friendly, stays in the shallow near end. Fine, not thrilling.",
+     "<b>Zodiac</b> ~17,150 ISK adult — 75 min, small group, 8 km up the lagoon to the glacier wall at Breiðamerkurjökull. Substantially better, and the one worth paying for if you pay for either.",
+     "Zodiac sells out in August — book ahead at icelagoon.is."]},
+  {name:"Diamond Beach",lon:-16.178,lat:64.043,type:"sight",k:"iceberg",photo:true,time:"45 min",
+   what:"Icebergs stranded on black sand, directly across the road from the lagoon.",cost:"FREE",tips:[]},
+  {name:"Fjallsárlón",lon:-16.383,lat:64.012,type:"sight",k:"iceberg",time:"45 min",
+   what:"The quieter lagoon — glacier much closer to the water's edge.",cost:"FREE",tips:[]},
+  {name:"Höfn",lon:-15.208,lat:64.254,type:"camp",k:"tent",svc:true,time:"Camp + dinner",
+   what:"\"Lobster capital of Iceland\" — <em>humar</em> is actually langoustine.",cost:"~2,000–3,500 ISK pp camping",
+   tips:["Pakkhús and Humarhöfnin are the two known spots. A genuine local specialty and roughly the one splurge meal worth defending on this trip — <b>book ahead in August</b>."]},
+  {name:"Stokksnes / Vestrahorn",short:"Stokksnes",lon:-14.993,lat:64.247,type:"sight",k:"mountain",photo:true,time:"Evening · 15 min past Höfn",
+   what:"Black sand dunes under a 454 m jagged mountain; mirror reflection at low tide.",
+   cost:"1,100 ISK pp (Viking Café; self-service kiosk after 18:00)",
+   tips:["Probably the single best photograph of the trip, and it's best in evening light.",
+     "<b>Check the tide table</b> — you want low or falling tide for the reflection.",
+     "Tripod if you care about this one at golden hour.",
+     "If the weather's poor tonight, roll it to tomorrow morning — it's on the Day 3 route out of Höfn."]}
+ ]},
+
+{n:3,date:"Tue 18 Aug",iso:"2026-08-18",title:"East Fjords",leg:"Höfn → Egilsstaðir",km:"~300 km",drive:"4h15",
+ sleep:"Egilsstaðir campsite",sunset:"~21:22",hex:"#ffd93d",
+ notes:[
+  "<b>Cut Stöðvarfjörður</b> unless you're ahead of schedule. The fjord road between Djúpivogur and Fáskrúðsfjörður <em>is</em> the attraction — the driving is the sightseeing here. Take it slowly, stop at the pull-offs.",
+  "Single-lane bridges and single-lane tunnels: the vehicle closer to the bridge or passing bay has right of way. Slow down early."],
+ route:[[-15.208,64.254],[-14.993,64.247],[-14.55,64.45],[-14.283,64.656],[-14.60,64.72],
+   [-14.20,64.80],[-14.40,64.85],[-14.05,64.92],[-14.010,64.931],[-14.28,65.00],
+   [-14.21,65.030],[-14.395,65.267],[-14.20,65.28],[-14.008,65.262],[-14.395,65.267]],
+ stops:[
+  {name:"Djúpivogur",lon:-14.283,lat:64.656,type:"sight",k:"town",time:"30 min",
+   what:"Harbour town. Eggin í Gleðivík — the row of stone eggs along the shore.",cost:"FREE",tips:[]},
+  {name:"Fáskrúðsfjörður",short:"Fáskrúðsfj.",lon:-14.010,lat:64.931,type:"sight",k:"town",time:"30 min",
+   what:"The French fishing village — street signs in French as well as Icelandic.",cost:"FREE",tips:[]},
+  {name:"Reyðarfjörður",lon:-14.21,lat:65.030,type:"sight",k:"town",time:"Pass through",
+   what:"On the way to Seyðisfjörður.",cost:"FREE",tips:[]},
+  {name:"Seyðisfjörður",short:"Seyðisfj.",lon:-14.008,lat:65.262,type:"sight",k:"church",photo:true,time:"1.5–2h · the day's payoff",
+   what:"The rainbow street leading to the blue church, Tvísöngur sound sculpture on the hillside, a genuinely arty little town.",cost:"FREE",
+   danger:"Route 93 over Fjarðarheiði is 11 km of hairpins with gradients up to 12%, frequently fogged in, and a real drive in a high-sided camper.",
+   tips:["Check <b>road.is</b> and the Fjarðarheiði webcams before committing.",
+     "Descend in low gear, not on the brakes.",
+     "Seyðisfjörður has a lovely small campsite if you'd rather stay and skip the pass twice."]},
+  {name:"Egilsstaðir",lon:-14.395,lat:65.267,type:"camp",k:"tent",svc:true,time:"Camp",
+   what:"Full services and big supermarkets: Bónus, Krónan, Nettó.",cost:"~2,000–3,500 ISK pp",
+   tips:["<b>Restock here</b> — the north is thinner.",
+     "Fill up too: the stretch Egilsstaðir → Mývatn has almost nothing."]}
+ ]},
+
+{n:4,date:"Wed 19 Aug",iso:"2026-08-19",title:"Volcanic north",leg:"Egilsstaðir → Mývatn",km:"~250 km",drive:"4h",
+ sleep:"Vogar or Bjarg (Mývatn)",sunset:"~21:18",hex:"#a8e05f",
+ notes:[
+  "<b>Midges.</b> Mývatn literally means \"midge lake\". In August they're still swarming and while they don't bite, they will fly into your eyes, nose and mouth in dense clouds when there's no wind. Buy three fine-mesh head nets before you go — mosquito nets have holes too big.",
+  "<b>Aurora:</b> ~20 Aug is roughly when Icelandic skies get dark enough again. Tonight is borderline but possible if it's clear and activity is up. Check vedur.is; best window 23:00–01:00."],
+ route:[[-14.395,65.267],[-15.30,65.32],[-15.85,65.35],[-16.20,65.60],[-16.385,65.815],
+   [-16.60,65.72],[-16.809,65.640],[-16.883,65.626],[-16.872,65.603],[-16.913,65.591],
+   [-16.848,65.631],[-16.913,65.607]],
+ stops:[
+  {name:"Dettifoss",lon:-16.385,lat:65.815,type:"sight",k:"waterfall",photo:true,time:"1h",
+   what:"Europe's most powerful waterfall. West side, Road 862.",cost:"FREE",
+   tips:["<b>Take Road 862, not 864.</b> 862 is paved and fine for a 2WD camper; 864 is rough gravel and most rental contracts either forbid it or won't cover damage on it.",
+     "Selfoss waterfall is a 15-minute walk upstream from the same car park and is worth it."]},
+  {name:"Námafjall / Hverir",short:"Hverir",lon:-16.809,lat:65.640,type:"sight",k:"geothermal",time:"45 min",
+   what:"Fumaroles, mud pots, sulphur.",cost:"FREE",tips:[]},
+  {name:"Grjótagjá",lon:-16.883,lat:65.626,type:"sight",k:"cave",time:"20 min",
+   what:"Lava cave with a hot spring inside.",cost:"FREE",
+   danger:"You cannot swim. The water sits at 43–50 °C — hot enough to injure — and it's on private land where bathing has been banned for years.",
+   tips:["Plenty of people arrive expecting the <em>Game of Thrones</em> scene and are disappointed. Go for the light through the cave mouth, which is the actual photograph."]},
+  {name:"Dimmuborgir",lon:-16.913,lat:65.591,type:"sight",k:"lava",time:"45 min",
+   what:"Lava formations, easy loop walk.",cost:"FREE",tips:["Head nets. This is the walk midges ruin."]},
+  {name:"Hverfjall",lon:-16.872,lat:65.603,type:"sight",k:"crater",photo:true,time:"1h",
+   what:"Tephra crater — short steep climb to the rim.",cost:"FREE",tips:[]},
+  {name:"Mývatn Nature Baths",short:"Nature Baths",lon:-16.848,lat:65.631,type:"sight",k:"bath",time:"2h",
+   what:"Geothermal baths. The right call over a Blue-Lagoon-of-the-north.",cost:"~7,900 ISK pp",
+   tips:["Quick-dry towel. You must shower naked before entering — strictly enforced everywhere in Iceland."]},
+  {name:"Mývatn campsite",short:"Campsite",lon:-16.913,lat:65.607,type:"camp",k:"tent",time:"Camp",
+   what:"Vogar or Bjarg. Bjarg is lakeside and lovely, and gets full.",cost:"~2,000–3,500 ISK pp",
+   tips:["Aurora watch tonight if it's clear — check vedur.is, best 23:00–01:00."]}
+ ]},
+
+{n:5,date:"Thu 20 Aug",iso:"2026-08-20",title:"Whales &amp; Goðafoss",leg:"Mývatn → Blönduós",km:"~290 km",drive:"4h + 3h boat",
+ sleep:"Blönduós or Varmahlíð",sunset:"~21:14",hex:"#2fd6a5",
+ notes:[
+  "This is the trade you make for skipping puffins, and it's a good one — near-guaranteed large animals at close range, versus a colony that will be empty.",
+  "If you'd rather not spend 3 hours on a boat, drop it and you can comfortably reach Hvammstangi instead, which sets up an easier Day 6.",
+  "<b>Aurora season technically begins around now.</b> Nights are finally dark enough."],
+ route:[[-16.913,65.607],[-17.10,65.80],[-17.339,66.045],[-17.45,65.85],[-17.550,65.683],
+   [-18.088,65.684],[-18.60,65.60],[-19.44,65.533],[-19.80,65.60],[-20.28,65.660]],
+ stops:[
+  {name:"Húsavík",lon:-17.339,lat:66.045,type:"town",k:"whale",svc:true,time:"08:30 drive · 10:00 tour, 3h",
+   what:"Iceland's whale-watching capital. August is peak season — humpbacks, minke, white-beaked dolphins.",
+   cost:"~40,000 ISK for three (verify current price)",
+   tips:["98–99% success rate on 3-hour tours in June–August.",
+     "<b>Gentle Giants</b> and <b>North Sailing</b> are the two established operators; both provide full flotation overalls. Book ahead for August.",
+     "Lunch in Húsavík ~13:30."]},
+  {name:"Goðafoss",lon:-17.550,lat:65.683,type:"sight",k:"waterfall",photo:true,time:"15:00 · 45 min",
+   what:"The waterfall of the gods, right off Route 1.",cost:"FREE",tips:[]},
+  {name:"Akureyri",lon:-18.088,lat:65.684,type:"town",k:"town",svc:true,time:"16:30 · 2h",
+   what:"Botanic garden, Akureyrarkirkja, coffee, showers, big shop.",cost:"FREE (pool ~1,200–1,500 ISK)",
+   tips:["Big supermarket stop — Bónus is cheapest, then Krónan, then Nettó.",
+     "The public pool here is the best value in Iceland: geothermal, full of locals. Do this rather than pay for extra lagoons."]},
+  {name:"Blönduós",lon:-20.28,lat:65.660,type:"camp",k:"tent",svc:true,time:"19:00 drive · camp",
+   what:"Blönduós or Varmahlíð. Both plain, both fine, both exist mainly to shorten tomorrow.",
+   cost:"~2,000–3,500 ISK pp",tips:["Leave by 09:00 tomorrow — Day 6 is the long one."]}
+ ]},
+
+{n:6,date:"Fri 21 Aug",iso:"2026-08-21",title:"North → Snæfellsnes",leg:"Blönduós → Ólafsvík",km:"~310 km",drive:"4h",
+ sleep:"Ólafsvík or Hellissandur",sunset:"~21:15",hex:"#4dabf7",
+ notes:[
+  "The longest pure driving day, and the price of closing the loop. Mostly empty, beautiful valley road. The payoff is the back half.",
+  "<b>Leave Blönduós by 09:00.</b> You want to be on the peninsula's south coast by early afternoon so the whole west end lands in evening light.",
+  "<b>This is your golden-hour day.</b> Sunset ~21:15, so from roughly 19:00 onward Arnarstapi, Lóndrangar and Djúpalónssandur are lit sideways and half-empty — the tour buses have gone back to Reykjavík. Take the cliff walk late rather than early.",
+  "<b>Aurora watch:</b> if it's clear, this is your best night of the trip. Dark rural sky, west-facing, no light dome."],
+ route:[[-20.28,65.660],[-20.638,65.606],[-20.96,65.40],[-21.30,65.10],[-21.60,64.80],
+   [-21.920,64.538],[-22.60,64.72],[-23.090,64.802],[-23.384,64.821],[-23.622,64.769],
+   [-23.645,64.753],[-23.790,64.735],[-23.904,64.753],[-23.711,64.894]],
+ stops:[
+  {name:"Hvítserkur",lon:-20.638,lat:65.606,type:"sight",k:"seastack",photo:true,time:"Optional",
+   what:"15 m basalt sea stack that looks like a drinking dragon. Seals on the sandbanks.",cost:"FREE",
+   tips:["40 km detour on gravel Road 711. <b>Skip if the weather's poor</b> — the gravel is slow.",
+     "Gravel: 40–60 km/h, and slower still when meeting oncoming traffic. Gravel damage is the single most common camper insurance claim."]},
+  {name:"Borgarnes",lon:-21.920,lat:64.538,type:"town",k:"fuel",svc:true,time:"Fuel + shop",
+   what:"Last cheap supermarket before the peninsula.",cost:"—",tips:["Fill up here."]},
+  {name:"Ytri-Tunga",lon:-23.090,lat:64.802,type:"sight",k:"paw",time:"30 min",
+   what:"Seal colony on the beach — reliable in summer.",cost:"FREE",tips:[]},
+  {name:"Búðir",lon:-23.384,lat:64.821,type:"sight",k:"church",photo:true,time:"30 min",
+   what:"Isolated black church on a lava field.",cost:"FREE",tips:["Golden hour location — that's why it sits late in the day."]},
+  {name:"Arnarstapi → Hellnar",short:"Arnarstapi",lon:-23.622,lat:64.769,type:"sight",k:"arch",photo:true,time:"1h",
+   what:"2.5 km cliff path with arches and sea stacks. The best short walk in west Iceland.",cost:"FREE",
+   tips:["Take it late rather than early — sideways light, and the buses have gone."]},
+  {name:"Lóndrangar",lon:-23.790,lat:64.735,type:"sight",k:"seastack",time:"20 min",
+   what:"Basalt pinnacles rising off the lava.",cost:"FREE",tips:[]},
+  {name:"Djúpalónssandur",short:"Djúpalón",lon:-23.904,lat:64.753,type:"sight",k:"beach",photo:true,time:"45 min",
+   what:"Black pebble beach, the 1948 trawler wreck, and the four lifting stones.",cost:"FREE",
+   tips:["Your golden-hour anchor for the whole trip's west end."]},
+  {name:"Ólafsvík",lon:-23.711,lat:64.894,type:"camp",k:"tent",time:"Camp",
+   what:"Ólafsvík or Hellissandur. Ólafsvík puts you 25 km from Kirkjufell for tomorrow morning.",
+   cost:"~2,000–3,500 ISK pp",tips:["Best aurora night of the trip if it's clear. Check vedur.is."]}
+ ]},
+
+{n:7,date:"Sat 22 Aug",iso:"2026-08-22",title:"Kirkjufell → Menningarnótt",leg:"Ólafsvík → Reykjavík",km:"~200 km",drive:"2h30",
+ sleep:"Reykjavík Airbnb",sunset:"~21:10",hex:"#b39dff",
+ notes:[
+  "Since the van goes back at a time of your choosing, this day is comfortable. Kirkjufell in the morning is flat light rather than golden — but you got your golden hour last night at Djúpalónssandur. This is the postcard shot, not the portfolio shot, and an hour is enough.",
+  "<b>Sequence the van return before the Airbnb.</b> Central Reykjavík is closed to traffic 07:00–midnight and the marathon runs through the city 08:40–16:10. If your Airbnb is downtown, driving to it with luggage that afternoon ranges from painful to impossible.",
+  "<b>Check where your depot actually is.</b> Most camper companies sit in Kópavogur, Hafnarfjörður, Mosfellsbær or out by Grandi — all outside the closure zone. Confirm the address against the Culture Night road-closure map, and give yourself a 30-minute buffer. Ask them now whether they can do a later return if you're delayed."],
+ route:[[-23.711,64.894],[-23.308,64.927],[-23.00,64.90],[-22.40,64.72],[-21.920,64.538],
+   [-21.75,64.35],[-21.943,64.147]],
+ stops:[
+  {name:"Kirkjufell",lon:-23.308,lat:64.927,type:"sight",k:"mountain",photo:true,time:"09:00 · 1h",
+   what:"The postcard mountain, with Kirkjufellsfoss in front of it.",cost:"FREE",
+   tips:["Tripod if you want it properly. An hour is enough — flat morning light, and you've already had your golden hour."]},
+  {name:"Camper depot",short:"Depot",lon:-21.90,lat:64.10,type:"town",k:"van",svc:true,time:"~13:30",
+   what:"Return the van. Depot is most likely Kópavogur, Hafnarfjörður, Mosfellsbær or Grandi — outside the closure zone.",
+   cost:"—",
+   tips:["<b>Do this before the Airbnb.</b> Downtown is closed to traffic 07:00–midnight.",
+     "Confirm the exact address against the Culture Night closure map beforehand. 30-minute buffer."]},
+  {name:"Reykjavík Airbnb",short:"Airbnb",lon:-21.943,lat:64.147,type:"airbnb",k:"house",time:"~15:00 check-in",
+   what:"Drop bags, shower, breathe. Nights of 22 and 23 Aug.",cost:"—",
+   tips:["Taxi or walk in with your bags after returning the van.",
+     "Save the address, check-in instructions and host contact offline."]},
+  {name:"Menningarnótt",lon:-21.933,lat:64.148,type:"sight",k:"fireworks",photo:true,time:"16:00 → · fireworks 22:00",
+   what:"Reykjavík Culture Night — ~400 events across the city, program from noon, fireworks over Arnarhóll at 22:00. The biggest night of the Icelandic year.",
+   cost:"FREE",
+   tips:["It's free, and locals open their homes and gardens with waffles and coffee. <b>Wander rather than plan.</b>",
+     "The official program goes up at reykjavik.is a week or two before — worth a look the night before so you catch anything specific."]}
+ ]},
+
+{n:8,date:"Sun 23 Aug",iso:"2026-08-23",title:"Golden Circle",leg:"Coach tour from Reykjavík",km:"No car needed",drive:"~8–9h tour",
+ sleep:"Reykjavík Airbnb",sunset:"~21:05",hex:"#ff7ab8",
+ notes:[
+  "This fills the one major gap left in the whole itinerary — the Golden Circle was missing entirely from the original plan.",
+  "Classic big-coach tours run about 9 hours, departing ~09:00 and back by ~18:00. There are also 6.5-hour express versions and small-group minibus options at a higher price. <b>Book ahead for a late-August Sunday.</b>",
+  "<b>Blue Lagoon no longer fits.</b> With the van gone on the 22nd and the Golden Circle today, it would need a dedicated 45-minute-each-way coach transfer on the only day left — which collides with the tour. Sky Lagoon is the replacement, and it suits this trip better."],
+ route:[[-21.943,64.147],[-21.130,64.256],[-20.302,64.310],[-20.120,64.327],[-20.885,64.041],
+   [-21.60,64.05],[-21.943,64.147],[-21.936,64.118]],
+ stops:[
+  {name:"Þingvellir",lon:-21.130,lat:64.256,type:"sight",k:"rift",photo:true,time:"~09:00 depart",
+   what:"UNESCO site — the rift between the North American and Eurasian plates, and the site of the world's oldest parliament (930 AD).",
+   cost:"Included in tour",tips:[]},
+  {name:"Geysir",lon:-20.302,lat:64.310,type:"sight",k:"geothermal",time:"—",
+   what:"Geothermal area. Strokkur erupts every 5–10 minutes, reliably.",cost:"Included in tour",tips:[]},
+  {name:"Gullfoss",lon:-20.120,lat:64.327,type:"sight",k:"waterfall",photo:true,time:"—",
+   what:"Two-tier waterfall dropping into a canyon.",cost:"Included in tour",tips:[]},
+  {name:"Kerið",lon:-20.885,lat:64.041,type:"sight",k:"crater",time:"—",
+   what:"Red volcanic crater with a blue lake. On many itineraries.",cost:"Included in tour",
+   tips:["Back in Reykjavík ~18:00."]},
+  {name:"Sky Lagoon",lon:-21.936,lat:64.118,type:"sight",k:"bath",photo:true,time:"Book ~19:30–20:00",
+   what:"Ocean-edge infinity pool in Kópavogur, ~10 minutes from downtown. Faces west over the Atlantic — into the sunset. The 7-step ritual is included in most passes.",
+   cost:"35,000–50,000 ISK for three (depends on pass tier)",
+   tips:["Sunset is ~21:05 tonight — <b>book a slot around 19:30–20:00</b> so you're in the water for it.",
+     "Open until 23:00 weekdays, midnight at weekends.",
+     "Strætó bus 35 from Hlemmur (~20 min, ~490 ISK) or a 10-minute taxi.",
+     "Sunday evening in August will be busy. Book ahead."]},
+  {name:"Reykjavík Airbnb",short:"Airbnb",lon:-21.943,lat:64.147,type:"airbnb",k:"house",time:"Night",
+   what:"Second and final Airbnb night.",cost:"—",
+   tips:["Confirm checkout time and whether you can leave bags — though at a 07:30 departure it likely doesn't matter."]}
+ ]},
+
+{n:9,date:"Mon 24 Aug",iso:"2026-08-24",title:"Departure",leg:"Reykjavík → KEF",km:"~50 km",drive:"45 min (Flybus)",
+ sleep:"—",sunset:"~21:03",hex:"#c3cdd6",
+ notes:[
+  "Flight 11:30. Be at KEF by <b>09:30</b>. Much simpler now that there's no van to return.",
+  "Reykjanes peninsula is volcanically active (Sundhnúkur system). It no longer affects your route, but a major event can disrupt <b>KEF airport road access</b>. Check safetravel.is before the 24th."],
+ route:[[-21.943,64.147],[-21.926,64.140],[-22.10,64.09],[-22.40,64.02],[-22.605,63.985]],
+ stops:[
+  {name:"BSÍ terminal",short:"BSÍ",lon:-21.926,lat:64.140,type:"town",k:"bus",time:"~07:30 pickup · 08:00 depart",
+   what:"Flybus departs — 45 minutes to KEF.",cost:"3,999 ISK pp",
+   tips:["Tickets are <b>flexible on the date</b>, so buy online now and just turn up.",
+     "Two versions: BSÍ terminal only (cheaper), or Flybus+ with hotel-area drop-off. With three people and luggage on a Monday morning, Flybus+ or a taxi to BSÍ is worth the small extra."]},
+  {name:"Keflavík airport",short:"KEF",lon:-22.605,lat:63.985,type:"town",k:"plane",time:"08:45 · fly 11:30",
+   what:"At the airport ~2.5h before departure.",cost:"—",
+   tips:["VAT refund on single purchases over 6,000 ISK from one shop — keep receipts, claim at KEF. Worth it if you buy a wool sweater."]}
+ ]}
+];
+
+var TOWNLBL=[
+ {t:"Reykjavík",lon:-21.943,lat:64.147,dx:-8,dy:14,a:"end"},
+ {t:"Vík",lon:-19.006,lat:63.419,dx:0,dy:22,a:"middle"},
+ {t:"Höfn",lon:-15.208,lat:64.254,dx:12,dy:5,a:"start"},
+ {t:"Egilsstaðir",lon:-14.395,lat:65.267,dx:-12,dy:-9,a:"end"},
+ {t:"Mývatn",lon:-16.913,lat:65.607,dx:0,dy:26,a:"middle"},
+ {t:"Akureyri",lon:-18.088,lat:65.684,dx:-11,dy:16,a:"end"},
+ {t:"Blönduós",lon:-20.28,lat:65.660,dx:0,dy:-14,a:"middle"},
+ {t:"Ólafsvík",lon:-23.711,lat:64.894,dx:-9,dy:-11,a:"end"}
+];
+var TYPENAME={sight:"Sightseeing stop",camp:"Overnight campsite",
+  town:"Town · supermarket &amp; fuel",airbnb:"Reykjavík Airbnb"};
+
+/* ============================================================
+   5 · STATE
+   ============================================================ */
+function todayDay(){
+  var d=new Date(), p=function(x){return (x<10?"0":"")+x;};
+  var iso=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());
+  for(var i=0;i<DAYS.length;i++) if(DAYS[i].iso===iso) return DAYS[i].n;
+  return 0;
+}
+var TODAY=todayDay();
+var state={tab:"map",day:TODAY,sel:null,filter:"all",open:{},checks:{}};
+function el(id){return document.getElementById(id);}
+function dayByN(n){ return n>0?DAYS[n-1]:null; }
+
+/* ============================================================
+   6 · MAP — base layer
+   ============================================================ */
+function polyPath(pts,close){
+  var d="M"+P(pts[0]);
+  for(var i=1;i<pts.length;i++) d+="L"+P(pts[i]);
+  return d+(close?"Z":"");
+}
+function drawBase(){
+  var g='<path class="landfill" d="'+polyPath(COAST,true)+'"/>'+
+        '<path class="glacier" d="'+polyPath(VATNAJOKULL,true)+'"/>'+
+        '<path class="lake" d="'+polyPath(MYVATN,true)+'"/>';
+  for(var i=0;i<DAYS.length;i++){
+    var d=DAYS[i], on=(state.day===0||state.day===d.n);
+    g+='<path class="route" d="'+polyPath(d.route,false)+'" stroke="'+d.hex+
+       '" stroke-width="'+(on?4.4:3.4)+'" opacity="'+(on?0.94:0.12)+'"/>';
+  }
+  el("base").innerHTML=g;
+}
+
+/* ---------- pin geometry ---------- */
+function shapePath(type,x,y,r,fill,extra){
+  var e=extra||"";
+  if(type==="camp") return '<rect x="'+(x-r)+'" y="'+(y-r)+'" width="'+(2*r)+'" height="'+(2*r)+
+    '" rx="'+(r*0.3)+'" fill="'+fill+'"'+e+'/>';
+  if(type==="town") return '<path d="M'+x+' '+(y-r*1.34)+'L'+(x+r*1.34)+' '+y+'L'+x+' '+(y+r*1.34)+
+    'L'+(x-r*1.34)+' '+y+'Z" fill="'+fill+'"'+e+'/>';
+  if(type==="airbnb"){
+    var p=[];
+    for(var i=0;i<5;i++){var a=(-90+i*72)*Math.PI/180;p.push((x+r*1.32*Math.cos(a))+","+(y+r*1.32*Math.sin(a)));}
+    return '<polygon points="'+p.join(" ")+'" fill="'+fill+'"'+e+'/>';
+  }
+  return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+fill+'"'+e+'/>';
+}
+function iconBox(type,r){ return type==="camp"?r*1.42:(type==="sight"?r*1.5:r*1.32); }
+function visibleStop(s){
+  if(state.filter==="camp") return s.type==="camp";
+  if(state.filter==="photo") return !!s.photo;
+  return true;
+}
+function activeStops(){
+  var out=[];
+  for(var i=0;i<DAYS.length;i++){
+    var d=DAYS[i];
+    if(state.day!==0 && state.day!==d.n) continue;
+    for(var j=0;j<d.stops.length;j++){
+      var s=d.stops[j];
+      if(visibleStop(s)) out.push({d:d,i:j,s:s});
+    }
+  }
+  return out;
+}
+
+/* ---------- de-overlap clustered pins (deterministic repulsion) ----------
+   Stops like the six around Mývatn sit within a few km of each other. We nudge
+   them apart so each stays tappable and labellable, and draw a leader line back
+   to the true position whenever a pin has been displaced.                     */
+function spread(items,r){
+  var minD=r*2.3, max=r*3.4, it=[],i,j;
+  for(i=0;i<items.length;i++)
+    it.push({x0:items[i].x,y0:items[i].y,x:items[i].x,y:items[i].y,ref:items[i]});
+  for(var pass=0;pass<70;pass++){
+    var moved=false;
+    for(i=0;i<it.length;i++) for(j=i+1;j<it.length;j++){
+      var a=it[i],b=it[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<1e-6){ var ang=(i*2.399963); dx=Math.cos(ang); dy=Math.sin(ang); d=1; }
+      if(d<minD){
+        var p=(minD-d)/2/d;
+        a.x-=dx*p; a.y-=dy*p; b.x+=dx*p; b.y+=dy*p; moved=true;
+      }
+    }
+    if(!moved) break;
+  }
+  for(i=0;i<it.length;i++){
+    var ddx=it[i].x-it[i].x0, ddy=it[i].y-it[i].y0, dd=Math.sqrt(ddx*ddx+ddy*ddy);
+    if(dd>max){ it[i].x=it[i].x0+ddx/dd*max; it[i].y=it[i].y0+ddy/dd*max; }
+    it[i].off=dd;
+  }
+  return it;
+}
+
+/* ---------- label placement (greedy, collision-aware) ---------- */
+function placeLabels(items,r,fs,vis,obstacles){
+  var boxes=(obstacles||[]).slice(), placed=[], i, cx=0, cy=0;
+  for(i=0;i<items.length;i++){ cx+=items[i].x; cy+=items[i].y; }
+  cx/=items.length||1; cy/=items.length||1;          /* cluster centroid */
+  for(i=0;i<items.length;i++){
+    var pr=r*1.4;
+    boxes.push({x0:items[i].x-pr,x1:items[i].x+pr,y0:items[i].y-pr,y1:items[i].y+pr});
+  }
+  /* 8 directions × 3 distances, ordered per-item to prefer pointing away
+     from the middle of the cluster, so dense groups fan outwards */
+  var dirs=[[1,0],[0.71,-0.71],[0,-1],[-0.71,-0.71],[-1,0],[-0.71,0.71],[0,1],[0.71,0.71]];
+  var rings=[r+fs*0.55, r+fs*1.9, r+fs*3.4];
+  function overlap(a,b){ return !(a.x1<b.x0||a.x0>b.x1||a.y1<b.y0||a.y0>b.y1); }
+
+  for(var n=0;n<items.length;n++){
+    var t=items[n], w=t.text.length*fs*0.55+fs*0.5, h=fs*1.12;
+    var ox=t.x-cx, oy=t.y-cy, om=Math.sqrt(ox*ox+oy*oy)||1;
+    ox/=om; oy/=om;
+    /* score directions by how outward they point */
+    var order=dirs.map(function(d,k){ return {d:d,k:k,s:-(d[0]*ox+d[1]*oy)}; });
+    order.sort(function(a,b){ return a.s-b.s; });
+    var best=null, bestHits=1e9;
+    for(var ri=0;ri<rings.length && bestHits>0;ri++){
+      for(var oi=0;oi<order.length;oi++){
+        var d=order[oi].d, R=rings[ri];
+        var lx=t.x+d[0]*R, ly=t.y+d[1]*R+fs*0.34;
+        var an = d[0]>0.3?"start" : (d[0]<-0.3?"end":"middle");
+        var x0 = an==="start"?lx : (an==="end"?lx-w : lx-w/2);
+        var box={x0:x0,x1:x0+w,y0:ly-h*0.78,y1:ly+h*0.28};
+        var hits=0;
+        for(var b=0;b<boxes.length;b++) if(overlap(box,boxes[b])) hits++;
+        /* strongly penalise anything that would fall outside the visible
+           window — a clipped label is worse than an overlapping one */
+        if(vis && (box.x0<vis.x0||box.x1>vis.x1||box.y0<vis.y0||box.y1>vis.y1)) hits+=4;
+        if(hits<bestHits){ bestHits=hits; best={x:lx,y:ly,a:an,box:box,ring:ri}; }
+        if(hits===0) break;
+      }
+    }
+    if(best){
+      if(vis){                                   /* hard-clamp into view */
+        var sh=0;
+        if(best.box.x0<vis.x0) sh=vis.x0-best.box.x0;
+        else if(best.box.x1>vis.x1) sh=vis.x1-best.box.x1;
+        best.x+=sh; best.box.x0+=sh; best.box.x1+=sh;
+        var sv=0;
+        if(best.box.y0<vis.y0) sv=vis.y0-best.box.y0;
+        else if(best.box.y1>vis.y1) sv=vis.y1-best.box.y1;
+        best.y+=sv; best.box.y0+=sv; best.box.y1+=sv;
+      }
+      boxes.push(best.box);
+      placed.push({x:best.x,y:best.y,a:best.a,text:t.text,hex:t.hex,
+        sel:t.sel,px:t.x,py:t.y,far:best.ring>0||bestHits>0});
+    }
+  }
+  return placed;
+}
+
+/* ---------- pins layer ---------- */
+function pxPerUnit(){
+  var b=el("svg").getBoundingClientRect();
+  return (b.width||360)/W;
+}
+function drawPins(){
+  var ppu=pxPerUnit()*view.s;                 /* screen px per map unit */
+  var detail=(state.day>0)||(view.s>=2.2);
+  var r = detail ? clamp(10.5/ppu,5,24) : clamp(7/ppu,4.5,14);
+  var fs = clamp(11.5/ppu,7,42);
+  var list=activeStops(), g="", hits="", lbls=[];
+
+  /* dimmed pins for non-selected days */
+  if(state.day>0){
+    for(var i=0;i<DAYS.length;i++){
+      if(DAYS[i].n===state.day) continue;
+      var dd=DAYS[i];
+      for(var j=0;j<dd.stops.length;j++){
+        var ss=dd.stops[j]; if(!visibleStop(ss)) continue;
+        g+='<g opacity="0.14">'+shapePath(ss.type,px(ss.lon),py(ss.lat),r*0.62,dd.hex)+'</g>';
+      }
+    }
+  }
+  /* town labels only in overview — placed with the same collision engine,
+     using every visible pin as an obstacle so names never sit on a marker */
+  if(!detail){
+    var tfs=clamp(11.5/ppu,8,28), obs=[], ti;
+    for(ti=0;ti<list.length;ti++){
+      var os=list[ti].s, ox=px(os.lon), oy=py(os.lat), orr=r*1.35;
+      obs.push({x0:ox-orr,x1:ox+orr,y0:oy-orr,y1:oy+orr});
+    }
+    var titems=TOWNLBL.map(function(L){ return {x:px(L.lon),y:py(L.lat),text:L.t}; });
+    var mt=tfs*0.5, tvis={x0:-view.x/view.s+mt, x1:(W-view.x)/view.s-mt,
+                          y0:-view.y/view.s+mt, y1:(H-view.y)/view.s-mt};
+    var tp=placeLabels(titems,r,tfs,tvis,obs), thalo=tfs*0.19;
+    for(ti=0;ti<tp.length;ti++){
+      var T=tp[ti];
+      g+='<circle class="towndot" cx="'+T.px+'" cy="'+T.py+'" r="'+(2.2/ppu)+'"/>';
+      var tb='x="'+T.x+'" y="'+T.y+'" text-anchor="'+T.a+'" font-size="'+tfs+'"';
+      g+='<text class="townlbl halo" '+tb+' stroke="#060a0d" stroke-width="'+thalo+
+         '" fill="none">'+T.text+'</text>'+
+         '<text class="townlbl" '+tb+' stroke="none">'+T.text+'</text>';
+    }
+  }
+  /* active pins — de-overlapped */
+  var raw=[];
+  for(var k=0;k<list.length;k++){
+    var o=list[k], s=o.s;
+    raw.push({x:px(s.lon),y:py(s.lat),o:o,s:s,
+      sel:!!(state.sel && state.sel.d===o.d.n && state.sel.i===o.i)});
+  }
+  var sp=spread(raw,r), lw=1.3/ppu;
+  /* leaders from true position to displaced pin */
+  for(var q=0;q<sp.length;q++){
+    if(sp[q].off>r*0.35){
+      g+='<circle cx="'+sp[q].x0+'" cy="'+sp[q].y0+'" r="'+(1.9/ppu)+'" fill="#9fb1c0"/>'+
+         '<path class="leader" d="M'+sp[q].x0+' '+sp[q].y0+'L'+sp[q].x+' '+sp[q].y+
+         '" stroke-width="'+lw+'"/>';
+    }
+  }
+  for(var k2=0;k2<sp.length;k2++){
+    var it=sp[k2], s2=it.ref.s, o2=it.ref.o, sel=it.ref.sel, rr=sel?r*1.18:r;
+    g+=shapePath(s2.type,it.x,it.y,rr,o2.d.hex,
+        sel?' stroke="#ffffff" stroke-width="'+(2.6/ppu)+'"':'');
+    if(detail) g+=iconG(s2.k,it.x,it.y,iconBox(s2.type,rr),"#0b1013");
+    hits+='<circle class="pinhit" cx="'+it.x+'" cy="'+it.y+'" r="'+Math.max(rr*1.6,21/ppu)+
+          '" data-d="'+o2.d.n+'" data-i="'+o2.i+'"/>';
+    /* the number prefix is part of the string the width estimate must cover */
+    if(detail) lbls.push({x:it.x,y:it.y,text:(o2.i+1)+' · '+(s2.short||s2.name),
+                          hex:o2.d.hex,sel:sel});
+  }
+  /* labels — halo drawn as a separate pass so it never covers the glyphs,
+     which keeps it correct in renderers without paint-order support */
+  if(detail && lbls.length){
+    var m=fs*0.5, vis={x0:-view.x/view.s+m, x1:(W-view.x)/view.s-m,
+                       y0:-view.y/view.s+m, y1:(H-view.y)/view.s-m};
+    var placed=placeLabels(lbls,r,fs,vis), halo=fs*0.17;
+    for(var p=0;p<placed.length;p++){
+      var L2=placed[p];
+      var body='x="'+L2.x+'" y="'+L2.y+'" text-anchor="'+L2.a+'" font-size="'+fs+'"';
+      var inner=L2.text;
+      if(L2.far) g+='<path class="leader" d="M'+L2.px+' '+L2.py+'L'+L2.x+' '+
+        (L2.y-fs*0.28)+'" stroke-width="'+lw+'"/>';
+      g+='<text class="stoplbl halo" '+body+' stroke="#060a0d" stroke-width="'+halo+
+         '" fill="none">'+inner+'</text>';
+      g+='<text class="stoplbl" '+body+' stroke="none"'+
+         (L2.sel?' fill="'+L2.hex+'"':'')+'>'+inner+'</text>';
+    }
+  }
+  el("pins").innerHTML=g+hits;
+  el("maphint").textContent = detail
+    ? "Drag to pan · pinch or +/− to zoom · tap a pin"
+    : "Overview — tap a day above for names, icons & detail";
+}
+function drawMap(){ drawBase(); drawPins(); }
+
+/* ---------- pan / zoom ---------- */
+var view={s:1,x:0,y:0}, rafPend=false;
+function applyView(){
+  el("cam").setAttribute("transform","translate("+view.x+","+view.y+") scale("+view.s+")");
+}
+function clampView(){
+  view.s=clamp(view.s,0.9,8);
+  view.x=clamp(view.x,W-W*view.s,0);
+  view.y=clamp(view.y,H-H*view.s,0);
+}
+function schedulePins(){
+  if(rafPend) return; rafPend=true;
+  requestAnimationFrame(function(){ rafPend=false; drawPins(); });
+}
+function zoomAt(cx,cy,f){
+  var ns=clamp(view.s*f,0.9,8), k=ns/view.s;
+  view.x=cx-(cx-view.x)*k; view.y=cy-(cy-view.y)*k; view.s=ns;
+  clampView(); applyView(); schedulePins();
+}
+function resetView(){ view.s=1; view.x=0; view.y=0; }
+function fitTo(pts,pad){
+  if(!pts||!pts.length){ resetView(); applyView(); drawPins(); return; }
+  var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  for(var i=0;i<pts.length;i++){
+    var x=px(pts[i][0]), y=py(pts[i][1]);
+    if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y;
+  }
+  pad=pad||62; x0-=pad;y0-=pad;x1+=pad;y1+=pad;
+  view.s=clamp(Math.min(W/(x1-x0),H/(y1-y0)),0.9,6);
+  view.x=W/2-((x0+x1)/2)*view.s;
+  view.y=H/2-((y0+y1)/2)*view.s;
+  clampView(); applyView(); drawPins();
+}
+function fitDay(){
+  if(state.day===0){ resetView(); clampView(); applyView(); drawPins(); return; }
+  /* Fit to the stops rather than the whole drive: on days with a long transit
+     leg (Egilsstaðir→Mývatn, Blönduós→Snæfellsnes) fitting the route squashes
+     the stops into an unreadable knot. The route still draws, it just runs off
+     the edge — which is the correct trade for a stop-first map. */
+  var d=dayByN(state.day);
+  var pts=d.stops.map(function(s){ return [s.lon,s.lat]; });
+  fitTo(pts.length>1?pts:d.route, 74);
+}
+function svgPt(cx,cy){
+  var b=el("svg").getBoundingClientRect();
+  return {x:(cx-b.left)/b.width*W, y:(cy-b.top)/b.height*H};
+}
+(function gestures(){
+  var svg=el("svg"), ptrs={}, last=null, lastDist=0, moved=0;
+  svg.addEventListener("pointerdown",function(e){
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    try{ svg.setPointerCapture(e.pointerId); }catch(err){}
+    moved=0;
+    var ids=Object.keys(ptrs);
+    if(ids.length===1) last=svgPt(e.clientX,e.clientY);
+    else if(ids.length===2){
+      var a=ptrs[ids[0]],b=ptrs[ids[1]];
+      lastDist=Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+    }
+  });
+  svg.addEventListener("pointermove",function(e){
+    if(!ptrs[e.pointerId]) return;
+    ptrs[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(ptrs);
+    if(ids.length>=2){
+      var a=ptrs[ids[0]],b=ptrs[ids[1]];
+      var d=Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
+      if(lastDist>0){
+        var mid=svgPt((a.x+b.x)/2,(a.y+b.y)/2);
+        zoomAt(mid.x,mid.y,d/lastDist);
+      }
+      lastDist=d; moved=99;
+    } else if(last){
+      var p=svgPt(e.clientX,e.clientY);
+      view.x+=(p.x-last.x)*view.s; view.y+=(p.y-last.y)*view.s;
+      moved+=Math.abs(p.x-last.x)+Math.abs(p.y-last.y);
+      last=p; clampView(); applyView();
+    }
+  });
+  function up(e){
+    delete ptrs[e.pointerId];
+    var ids=Object.keys(ptrs);
+    if(ids.length<2) lastDist=0;
+    last = ids.length===1 ? svgPt(ptrs[ids[0]].x,ptrs[ids[0]].y) : null;
+  }
+  svg.addEventListener("pointerup",up);
+  svg.addEventListener("pointercancel",up);
+  svg.addEventListener("click",function(e){
+    if(moved>12) return;
+    var t=e.target;
+    if(t&&t.classList&&t.classList.contains("pinhit")){
+      openSheet(+t.getAttribute("data-d"), +t.getAttribute("data-i"), true);
+    }
+  });
+  el("zin").onclick=function(){ zoomAt(W/2,H/2,1.5); };
+  el("zout").onclick=function(){ zoomAt(W/2,H/2,1/1.5); };
+  el("zrst").onclick=function(){ fitDay(); };
+  el("mapwrap").addEventListener("wheel",function(e){
+    e.preventDefault();
+    var p=svgPt(e.clientX,e.clientY);
+    zoomAt(p.x,p.y,e.deltaY<0?1.12:1/1.12);
+  },{passive:false});
+  var rt;
+  window.addEventListener("resize",function(){
+    clearTimeout(rt); rt=setTimeout(function(){ setHdrH(); drawPins(); },160);
+  });
+})();
+
+/* ============================================================
+   7 · CHIPS · SUMMARY · LEGEND · STOP LIST
+   ============================================================ */
+function drawChips(){
+  var h='<button class="chip all" aria-pressed="'+(state.day===0)+'" data-day="0">'+
+        '<span class="n">All days</span><span class="dt">16–24 Aug</span></button>';
+  for(var i=0;i<DAYS.length;i++){
+    var d=DAYS[i];
+    h+='<button class="chip" style="color:'+d.hex+'" aria-pressed="'+(state.day===d.n)+
+       '" data-day="'+d.n+'">'+(TODAY===d.n?'<span class="today">TODAY</span>':'')+
+       '<span class="n">Day '+d.n+'</span><span class="dt">'+d.date.replace(" Aug","")+'</span></button>';
+  }
+  el("chips").innerHTML=h;
+  var act=el("chips").querySelector('[aria-pressed="true"]');
+  if(act&&act.scrollIntoView) act.scrollIntoView({block:"nearest",inline:"center"});
+}
+function cell(k,v){ return '<div class="sumcell"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'; }
+function drawSummary(){
+  el("prevDay").disabled=(state.day<=0);
+  el("nextDay").disabled=(state.day>=9);
+  if(state.day===0){
+    el("sumtitle").innerHTML='<b>Full loop</b>&nbsp;— Ring Road counterclockwise + Snæfellsnes, no repeated stops';
+    el("sumbar").innerHTML=cell("Total driving","~1,650–1,750 km")+cell("Camper nights","6 · Vík→Ólafsvík")+
+      cell("Reykjavík","Airbnb 22 &amp; 23")+cell("Sunset range","21:30 → 21:05");
+  } else {
+    var d=dayByN(state.day);
+    el("sumtitle").innerHTML='<span style="color:'+d.hex+';font-weight:750">Day '+d.n+'</span>&nbsp;· '+
+      d.date+' — '+d.title+'<br><span style="color:var(--fg3)">'+d.leg+'</span>';
+    el("sumbar").innerHTML=cell("Distance",d.km)+cell("Driving",d.drive)+cell("Sleep",d.sleep)+cell("Sunset",d.sunset);
+  }
+}
+function drawLegend(){
+  function sw(shape,label){
+    return '<span><svg width="18" height="18" viewBox="-9 -9 18 18" aria-hidden="true">'+shape+
+      '</svg>'+label+'</span>';
+  }
+  el("legend").innerHTML=
+    sw(shapePath("sight",0,0,7,"#8ea4b5"),"Sightseeing")+
+    sw(shapePath("camp",0,0,6.2,"#8ea4b5"),"Campsite")+
+    sw(shapePath("town",0,0,5.6,"#8ea4b5"),"Town · shop &amp; fuel")+
+    sw(shapePath("airbnb",0,0,5.6,"#8ea4b5"),"Airbnb")+
+    '<span style="color:var(--fg3)">Colour = day · number = order</span>';
+  var keys=Object.keys(ICONS), h="";
+  for(var i=0;i<keys.length;i++)
+    h+='<div>'+iconChip(keys[i],"#8ea4b5",22)+'<span>'+ICONS[keys[i]].n+'</span></div>';
+  el("iconlist").innerHTML=h;
+}
+function drawStopList(){
+  var box=el("stoplist");
+  if(state.day===0){ box.innerHTML=""; return; }
+  var d=dayByN(state.day), h='<h2 class="sect">Day '+d.n+' stops</h2><div class="card">';
+  var any=false;
+  for(var i=0;i<d.stops.length;i++){
+    var s=d.stops[i]; if(!visibleStop(s)) continue; any=true;
+    h+='<button class="slrow" data-stop="'+i+'">'+
+       '<span class="ico" style="background:'+d.hex+'">'+iconChip(s.k,"#0b1013",22)+'</span>'+
+       '<span class="txt"><span class="a">'+(i+1)+'. '+s.name+'</span>'+
+       '<span class="b">'+s.time+'</span></span>'+
+       '<span class="rt">'+(s.cost==="FREE"?'<span class="free">FREE</span>':s.cost)+'</span></button>';
+  }
+  if(!any) h+='<div style="padding:16px;color:var(--fg3);font-size:13.5px">No stops match this filter on Day '+d.n+'.</div>';
+  box.innerHTML=h+'</div>';
+}
+
+/* ============================================================
+   8 · DETAIL SHEET
+   ============================================================ */
+function openSheet(dn,i,recenter){
+  var d=dayByN(dn), s=d.stops[i];
+  state.sel={d:dn,i:i};
+  var h='<div class="grab"></div><div class="top">'+
+    '<div style="display:flex;gap:11px;align-items:flex-start;min-width:0">'+
+    '<span class="shico" style="background:'+d.hex+'">'+iconChip(s.k,"#0b1013",26)+'</span>'+
+    '<div style="min-width:0"><span class="badge" style="color:'+d.hex+'">Day '+d.n+' · '+d.date+'</span>'+
+    '<h3>'+(i+1)+'. '+s.name+'</h3>'+
+    '<div style="font-size:11.5px;color:var(--fg3);margin-top:3px">'+
+      ICONS[s.k].n+' · '+TYPENAME[s.type]+(s.photo?' · photo priority':'')+'</div></div></div>'+
+    '<button class="close" id="sclose" aria-label="Close">×</button></div>';
+  h+='<p style="font-size:14px;color:var(--fg2);margin:13px 0 0">'+s.what+'</p>';
+  h+='<dl class="kv"><dt>Time</dt><dd>'+s.time+'</dd><dt>Cost</dt><dd>'+
+     (s.cost==="FREE"?'<span class="free">FREE</span>':s.cost)+'</dd></dl>';
+  if(s.danger) h+='<div class="tip danger"><b>Safety.</b> '+s.danger+'</div>';
+  if(s.lights) h+='<div class="lights"><b style="background:#123a25;color:#5ee08a">GREEN</b>'+
+    '<b style="background:#3d3311;color:#ffd93d">YELLOW</b><b style="background:#3d1717;color:#ff6b6b">RED</b></div>';
+  for(var t=0;t<s.tips.length;t++) h+='<div class="tip">'+s.tips[t]+'</div>';
+  h+='<div class="sheetnav">'+
+     '<button id="spv"'+(i===0?' disabled':'')+'>‹ '+(i>0?d.stops[i-1].name:'')+'</button>'+
+     '<button id="snx"'+(i===d.stops.length-1?' disabled':'')+'>'+
+       (i<d.stops.length-1?d.stops[i+1].name:'')+' ›</button></div>';
+
+  var sh=el("sheet"); sh.innerHTML=h; sh.hidden=false; el("scrim").hidden=false;
+  el("sclose").onclick=closeSheet;
+  if(i>0) el("spv").onclick=function(){ openSheet(dn,i-1,true); };
+  if(i<d.stops.length-1) el("snx").onclick=function(){ openSheet(dn,i+1,true); };
+  sh.scrollTop=0;
+  if(recenter) recenterOn(s);
+  drawPins();
+}
+function recenterOn(s){
+  if(window.innerWidth>=880) return;
+  var b=el("svg").getBoundingClientRect();
+  var sy=(py(s.lat)*view.s+view.y)/H;
+  if(sy>0.5){
+    view.y=H*0.34-py(s.lat)*view.s;
+    view.x=W/2-px(s.lon)*view.s;
+    clampView(); applyView();
+  }
+}
+function closeSheet(){
+  state.sel=null; el("sheet").hidden=true; el("scrim").hidden=true; drawPins();
+}
+el("scrim").onclick=closeSheet;
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape" && !el("sheet").hidden){ closeSheet(); return; }
+  if(state.tab!=="map"||!el("sheet").hidden) return;
+  if(e.key==="ArrowRight"&&state.day<9) setDay(state.day+1);
+  if(e.key==="ArrowLeft"&&state.day>0) setDay(state.day-1);
+});
+
+/* ============================================================
+   9 · ITINERARY
+   ============================================================ */
+function drawItin(){
+  var allOpen=DAYS.every(function(d){ return state.open["d"+d.n]; });
+  var h='<p class="lead">Distances are driving only — add 50–100% for stops. Sunset times are approximate, '+
+        'interpolated across the doc\'s 21:30 (16th) → 21:05 (23rd) range.</p>'+
+        '<div class="toolbar"><button id="expAll">'+(allOpen?"Collapse all":"Expand all")+'</button></div>';
+  for(var i=0;i<DAYS.length;i++){
+    var d=DAYS[i], open=!!state.open["d"+d.n];
+    h+='<div class="card" data-open="'+(open?1:0)+'">'+
+       '<button class="hd" data-acc="d'+d.n+'"><span class="bar" style="background:'+d.hex+'"></span>'+
+       '<span class="t"><span class="a">Day '+d.n+' · '+d.title+'</span>'+
+       '<span class="b">'+d.date+' · '+d.leg+' · '+d.km+' · '+d.drive+'</span></span>'+
+       '<span class="caret">▶</span></button><div class="bd"'+(open?"":" hidden")+'>'+
+       '<div class="sumbar" style="margin-bottom:12px">'+cell("Distance",d.km)+cell("Driving",d.drive)+
+       cell("Sleep",d.sleep)+cell("Sunset",d.sunset)+'</div>';
+    for(var j=0;j<d.stops.length;j++){
+      var s=d.stops[j];
+      h+='<button class="slrow" data-jump="'+d.n+':'+j+'">'+
+         '<span class="ico" style="background:'+d.hex+'">'+iconChip(s.k,"#0b1013",22)+'</span>'+
+         '<span class="txt"><span class="a">'+(j+1)+'. '+s.name+'</span>'+
+         '<span class="b">'+s.time+' · '+s.what+'</span></span>'+
+         '<span class="rt">'+(s.cost==="FREE"?'<span class="free">FREE</span>':s.cost)+'</span></button>';
+    }
+    for(var k=0;k<d.notes.length;k++) h+='<div class="tip">'+d.notes[k]+'</div>';
+    h+='<button class="linkbtn" data-showmap="'+d.n+'">Show Day '+d.n+' on the map →</button>';
+    h+='</div></div>';
+  }
+  el("tab-itin").innerHTML=h;
+  el("expAll").onclick=function(){
+    for(var i=0;i<DAYS.length;i++) state.open["d"+DAYS[i].n]=!allOpen;
+    drawItin();
+  };
+}
+
+/* ============================================================
+   10 · CHECKLISTS
+   ============================================================ */
+var BOOK=[
+ {p:1,t:"<b>Jökulsárlón Zodiac</b>, 17 Aug",s:"Very limited seats, sells out in August · icelagoon.is"},
+ {p:2,t:"<b>Golden Circle tour</b>, 23 Aug",s:"Late-August Sunday, popular · goldencircledaytours.is / GetYourGuide"},
+ {p:3,t:"<b>Húsavík whale watching</b>, 20 Aug",s:"Peak season, book ahead · gentlegiants.is / northsailing.is"},
+ {p:4,t:"<b>Sky Lagoon</b>, 23 Aug evening",s:"Book ~19:30 for sunset; Sunday nights busy · skylagoon.com"},
+ {p:5,t:"<b>Flybus</b>, 24 Aug",s:"3,999 ISK, date-flexible — buy now, no risk · flybus.is"},
+ {p:6,t:"<b>Confirm camper return address + hours</b>, 22 Aug",s:"Culture Night road closures — see Day 7 · your rental company"},
+ {p:7,t:"Höfn langoustine dinner, 17 Aug",s:"Small restaurants, busy in August · Pakkhús / Humarhöfnin"},
+ {p:8,t:"Westman ferry — <b>only if</b> you take the puffin swap",s:"herjolfur.is · summer schedule runs 20 July – 23 Aug 2026"}
+];
+var PACK=[
+ {h:"Documents &amp; admin"},
+ {t:"Passports valid 3+ months beyond 24 Aug"},
+ {t:"Driving licences for <b>everyone who will drive</b>",s:"Add all three to the rental agreement, or only the named driver is insured"},
+ {t:"Travel insurance, including whether it covers driving abroad"},
+ {t:"Credit card <b>with PIN</b>, plus a backup card",s:"Icelandic pumps are unmanned and PIN-only outside opening hours. Notify a second bank of travel."},
+ {t:"Rental confirmation, with the return address checked against the Culture Night closure map"},
+ {t:"Airbnb address, check-in instructions and host contact — saved offline"},
+ {t:"Flybus tickets bought",s:"Date-flexible, so no risk in buying early"},
+ {t:"Booking confirmations downloaded <b>offline</b>",s:"Mobile signal drops in the east fjords and around Mývatn"},
+ {h:"Apps to install before you fly"},
+ {t:"safetravel.is",s:"Road, weather and hazard alerts. Register your travel plan."},
+ {t:"road.is (Vegagerðin)",s:"Live road conditions and webcams, including Fjarðarheiði"},
+ {t:"vedur.is — Icelandic Met Office",s:"Weather and the aurora forecast. The only forecast worth trusting here."},
+ {t:"112 Iceland",s:"Emergency app with GPS location transmission"},
+ {t:"Parka",s:"Pays parking at Skaftafell, Jökulsárlón and several other sites"},
+ {t:"Google Maps offline — download all of Iceland before leaving home"},
+ {t:"Camping Card / Tjalda or campsite maps"},
+ {h:"Packing — the Iceland-specific bits"},
+ {t:"<b>Proper waterproof jacket and trousers</b>",s:"Not water-resistant. It will rain sideways."},
+ {t:"Waterproof walking boots, worn in"},
+ {t:"Thermal base layers ×2",s:"Temperatures are 5–12 °C and the wind is worse than the number suggests"},
+ {t:"Fleece / mid layer, hat, gloves, buff or scarf",s:"Yes, in August."},
+ {t:"<b>Three fine-mesh head nets</b> for Mývatn",s:"Mosquito nets have holes too big"},
+ {t:"Swimwear + quick-dry towel ×3",s:"Needed for every pool, lagoon and hot spring"},
+ {t:"Flip-flops for campsite showers"},
+ {t:"<b>Sleep mask</b> — critical",s:"Sunset ~21:30, sunrise ~05:30, and camper curtains are thin"},
+ {t:"Earplugs",s:"Campsites, wind on the van"},
+ {t:"Sunglasses",s:"Low sun, long days, a lot of driving straight into it"},
+ {t:"Power bank + car USB charger + EU plug adapters",s:"Iceland is Type F, 230V"},
+ {t:"Camera, spare batteries, lens cloths",s:"Cold drains batteries; spray at every waterfall"},
+ {t:"Tripod",s:"If you care about Kirkjufell or Stokksnes at golden hour"},
+ {t:"Reusable water bottles ×3",s:"Tap water is excellent and free everywhere. Never buy bottled water in Iceland."},
+ {t:"Basic first aid, painkillers, any prescriptions"},
+ {t:"Small dry bag for phones at Reynisfjara / Skógafoss"},
+ {t:"Rubbish bags for the van"}
+];
+function countList(key,items){
+  var total=0,done=0;
+  for(var i=0;i<items.length;i++) if(!items[i].h){ total++; if(state.checks[key+i]) done++; }
+  return {total:total,done:done};
+}
+function renderChecklist(key,items,intro,withPri){
+  var c=countList(key,items);
+  var h=intro+'<div class="pbar"><div class="track"><div class="fill" style="width:'+
+    (c.total?Math.round(c.done/c.total*100):0)+'%"></div></div>'+
+    '<span class="lbl">'+c.done+'/'+c.total+'</span>'+
+    (c.done?'<button class="rst" data-reset="'+key+'">Reset</button>':'')+'</div>';
+  var open=false;
+  for(var j=0;j<items.length;j++){
+    var it=items[j];
+    if(it.h){ if(open){h+='</div>';open=false;} h+='<h2 class="sect">'+it.h+'</h2>'; continue; }
+    if(!open){ h+='<div class="card">'; open=true; }
+    var on=!!state.checks[key+j];
+    h+='<button class="chk" role="checkbox" aria-checked="'+on+'" data-chk="'+key+j+'">'+
+       (withPri?'<span class="pri">'+it.p+'</span>':'')+
+       '<span class="box">✓</span><span class="lb">'+it.t+(it.s?'<em>'+it.s+'</em>':'')+'</span></button>';
+  }
+  if(open) h+='</div>';
+  return h;
+}
+function drawBook(){
+  el("tab-book").innerHTML=renderChecklist("book",BOOK,
+    '<p class="lead">In priority order. Everything else on the route is free entry and needs no reservation; '+
+    'campsites are first-come, and arriving by 19:00 is the reliable strategy.</p>',true)+
+    '<div class="callout"><h4>Dropped from the plan</h4><p><b>Blue Lagoon</b> — no longer fits (see Day 8). '+
+    '<b>Reykjavík campsite</b> — you\'re in the Airbnb from the 22nd.</p></div>';
+  updatePills();
+}
+function drawPack(){
+  el("tab-pack").innerHTML=renderChecklist("pack",PACK,
+    '<p class="lead">Pre-trip checklist. State lasts for this browser session.</p>',false);
+  updatePills();
+}
+function updatePills(){
+  var b=countList("book",BOOK), p=countList("pack",PACK);
+  el("pBook").textContent=b.done+"/"+b.total;
+  el("pPack").textContent=p.done+"/"+p.total;
+}
+
+/* ============================================================
+   11 · NEED TO KNOW
+   ============================================================ */
+function drawInfo(){
+  el("tab-info").innerHTML='<div class="info">'+
+'<div class="callout"><h4>Reynisfjara — read this properly</h4>'+
+'<p>Six people have died here since 2013, most recently a 9-year-old in August 2025. Sneaker waves arrive without warning, on calm days, and they arrive much further up the beach than the previous fifty waves did.</p>'+
+'<p>There is a <strong>flashing light warning system</strong> in the car park. Obey it.</p>'+
+'<div class="lights"><b style="background:#123a25;color:#5ee08a">GREEN</b><b style="background:#3d3311;color:#ffd93d">YELLOW</b><b style="background:#3d1717;color:#ff6b6b">RED</b></div>'+
+'<p>Never turn your back on the water, and don\'t go closer than the marked line for a photo. The basalt columns at the back of the beach are the shot anyway.</p></div>'+
+'<h2 class="sect">Camping law</h2>'+
+'<h3>Sleeping in the van outside a campsite is illegal</h3>'+
+'<p>Since 2015, campervans and motorhomes may only stay overnight at <strong>registered campsites</strong>. Not lay-bys, not car parks, not trailheads, not "just this once because it\'s late." <strong>Fines start around 50,000 ISK</strong> and escalate. There are 200+ registered campsites; there is no reason to risk it.</p>'+
+'<p>The "right to roam" exception applies to <strong>tents only</strong>, on uncultivated non-private land, away from farms and campsites — it has never applied to vehicles.</p>'+
+'<h3>Camping Card: no, definitely not</h3>'+
+'<p>~26,000 ISK, covers <strong>2 adults</strong> + up to 4 children under 16, at 40+ participating sites. You\'re <strong>3 adults</strong>, so you\'d need two cards (~52,000 ISK), and it excludes the overnight tax, electricity and showers. The card breaks even around 7–10 paid nights <em>as a couple</em>. You have <strong>6 nights and three adults</strong>. It cannot pay for itself — pay per night.</p>'+
+'<p>Budget roughly <strong>2,000–3,500 ISK per person per night</strong> — call it <strong>40,000–60,000 ISK</strong> total for six nights.</p>'+
+'<p>Your six camper nights: Vík (16th) · Höfn (17th) · Egilsstaðir (18th) · Mývatn (19th) · Blönduós (20th) · Ólafsvík (21st).</p>'+
+'<h2 class="sect">Fuel</h2><ul>'+
+'<li>Expect roughly <strong>210–235 ISK/L petrol</strong>, <strong>230–260 ISK/L diesel</strong>. Budget <strong>35,000–55,000 ISK</strong> for the loop.</li>'+
+'<li><strong>Orkan and Orkan X are consistently cheaper than N1.</strong> N1 is the most expensive but has the best coverage in remote areas.</li>'+
+'<li>Get a fuel discount card (Orkan / Olís / N1) at your first fill — free, and saves a few ISK per litre over ~700 litres.</li>'+
+'<li><strong>You need a PIN with your credit card.</strong> Icelandic pumps are unmanned and PIN-only outside opening hours. Confirm before you fly and bring a backup card. Prepaid N1 vouchers are a useful fallback.</li>'+
+'<li><strong>Fill up at half tank in the east and north</strong>, not when you\'re low. Egilsstaðir → Mývatn has almost nothing.</li></ul>'+
+'<h2 class="sect">Roads &amp; driving</h2><ul>'+
+'<li><strong>You cannot drive F-roads</strong> in a 2WD camper — illegal, uninsured, and explicitly excluded from every rental contract. Nothing in this itinerary requires one.</li>'+
+'<li><strong>Gravel roads:</strong> slow to 40–60 km/h, and slower still when meeting oncoming traffic. Gravel damage is the single most common camper insurance claim.</li>'+
+'<li><strong>Never park on the road</strong> for a photo. There are pull-offs. Icelandic police fine this.</li>'+
+'<li><strong>Off-road driving is a criminal offence</strong> with fines up to 500,000 ISK.</li>'+
+'<li><strong>Wind is the real danger, not ice.</strong> In a high-sided camper, gusts over 20 m/s make you a sail. <strong>Open your door into the wind, holding it firmly</strong> — doors ripped off by gusts are a famous, expensive, uninsured rental claim.</li>'+
+'<li><strong>Single-lane bridges and tunnels</strong> in the east fjords: the vehicle closer to the bridge or passing bay has right of way. Slow down early.</li>'+
+'<li><strong>Sheep on the road</strong>, everywhere, all the time. They bolt unpredictably — and if there are two on one side and one on the other, the lone one <em>will</em> run across.</li>'+
+'<li><strong>Speed limits are camera-enforced:</strong> 90 km/h paved rural, 80 gravel, 50 in towns. Fines are severe and get charged to the rental card.</li>'+
+'<li><strong>Headlights on 24/7.</strong> Legally required.</li></ul>'+
+'<h3>Insurance</h3><p>Check whether your rental includes <strong>Gravel Protection (GP)</strong> and <strong>Sand &amp; Ash Protection (SAAP)</strong>. SAAP matters on the south coast around Vík and Skaftafell, where a sandstorm can strip the paint off a vehicle in minutes and cost thousands. If it\'s not included, buy it.</p>'+
+'<h2 class="sect">Money</h2><ul>'+
+'<li><strong>Iceland is effectively cashless.</strong> Card works for everything, down to campsite toilets. You don\'t need cash at all.</li>'+
+'<li><strong>Tipping is not customary.</strong> Don\'t.</li>'+
+'<li><strong>VAT refund</strong> on single purchases over 6,000 ISK from one shop — keep receipts, claim at KEF. Worth it if you buy a wool sweater.</li></ul>'+
+'<h2 class="sect">Food strategy</h2>'+
+'<p>Restaurants are genuinely expensive (2,500–5,000 ISK for a basic main). Self-catering in the camper is where the savings are.</p><ul>'+
+'<li><strong>Bónus</strong> is cheapest, then <strong>Krónan</strong>, then <strong>Nettó</strong>. <strong>10-11 and petrol-station shops are 2–3× the price</strong> — emergencies only.</li>'+
+'<li>Big shops: Njarðvík (Day 1), Vík, Höfn, Egilsstaðir, Akureyri, Borgarnes.</li>'+
+'<li>Bónus hours are short — typically 11:00–18:30, shorter Sundays. Don\'t plan a 20:00 shop.</li>'+
+'<li>Hot dogs (<em>pylsur</em>) with everything are the one cheap national food, ~700 ISK.</li>'+
+'<li>Bring coffee, spices, olive oil and snacks from home — all disproportionately expensive there.</li></ul>'+
+'<h2 class="sect">Things happening on your dates</h2>'+
+'<div class="callout"><h4>Sat 22 Aug — Menningarnótt + Reykjavík Marathon</h4>'+
+'<p>Downtown closed to traffic <strong>07:00–midnight</strong>; marathon through the city 08:40–16:10; ~400 events; fireworks 22:00 at Arnarhóll. <strong>Return the camper before you go to the Airbnb.</strong></p></div>'+
+'<div class="callout ok"><h4>12 Aug — total solar eclipse (before you land)</h4>'+
+'<p>First across Iceland since 1954. You arrive 4 days after, so the peak has passed, but expect campsites and popular sites to still be unusually busy in your first days. Book what\'s bookable.</p></div>'+
+'<div class="callout ok"><h4>~20 Aug onward — aurora season begins</h4>'+
+'<p>Nights finally dark enough. Check vedur.is; best window 23:00–01:00 in dark rural skies. Mývatn (19th) and Snæfellsnes (21st) are your best-positioned nights.</p></div>'+
+'<p><strong>Ongoing:</strong> Reykjanes peninsula is volcanically active (Sundhnúkur system). It no longer affects your route now that Blue Lagoon is out, but a major event can disrupt <strong>KEF airport road access</strong>. Check safetravel.is before the 24th.</p>'+
+'<p><strong>23 Aug (Sun):</strong> last day of the Herjólfur summer ferry schedule to the Westman Islands.</p>'+
+'<h2 class="sect">Puffins — the honest answer</h2>'+
+'<p>Atlantic puffins abandon Icelandic colonies <strong>by mid-August</strong>. Dyrhólaey is typically empty by late July / early August. Borgarfjörður Eystri / Hafnarhólmi — the best colony in the east — is almost certainly empty by the 16th.</p>'+
+'<p>The single exception is the <strong>Westman Islands</strong>, where mid-August to early September is <em>puffling</em> season and the town runs the Puffling Patrol. Taking it means inserting a Day 1 ferry crossing, which pushes everything back a day — and with the camper gone on the 22nd there\'s no slack at the end, so you\'d have to <strong>cut Snæfellsnes entirely</strong>.</p>'+
+'<p>The trade is: puffins + pufflings <strong>vs.</strong> Kirkjufell, Djúpalónssandur, Arnarstapi and Búðir. This artifact is built on the keep-Snæfellsnes version, with Húsavík whales as the wildlife day.</p>'+
+'<h2 class="sect">Rough budget · 3 people, 8 nights</h2><ul>'+
+'<li>Campsites 40,000–60,000 · Fuel 35,000–50,000 · Groceries 70,000–100,000</li>'+
+'<li>Restaurant meals 55,000–80,000 · Mývatn Nature Baths ×3 23,700</li>'+
+'<li>Jökulsárlón Zodiac ×3 51,500 (or 21,300 amphibian) · Whale watching ×3 ~40,000</li>'+
+'<li>Golden Circle ×3 36,000–45,000 · Sky Lagoon ×3 35,000–50,000 · Flybus ×3 11,997</li>'+
+'<li>Parking &amp; site fees 10,000–15,000</li></ul>'+
+'<p><strong>Total excl. camper, Airbnb &amp; flights: ~410,000–530,000 ISK ≈ €2,800–3,600 for three</strong> — roughly €930–1,200 per person on the ground.</p>'+
+'<h2 class="sect">Ten things worth knowing</h2><ul>'+
+'<li><strong>Weather changes hourly</strong>, and forecasts beyond 3 days are meaningless here. Check vedur.is every morning and be willing to flip the order of a day. The itinerary is a plan, not a contract.</li>'+
+'<li><strong>Everything takes 50% longer than the map says.</strong> Not traffic — you\'ll stop constantly.</li>'+
+'<li>Speed limits are camera-enforced and fines get charged to the rental card.</li>'+
+'<li>Headlights on 24/7, legally required.</li>'+
+'<li><strong>Public pools are the best value in Iceland</strong> — ~1,200–1,500 ISK, geothermal, in every town, full of locals. You must shower naked before entering; it\'s strictly enforced and non-negotiable. Do this rather than pay for extra lagoons.</li>'+
+'<li><strong>Free/cheap hot springs on route:</strong> Hoffell near Höfn (~1,000 ISK), Seljavallalaug near Skógafoss (free, unmaintained, chilly, 20 min walk, wonderful), Grettislaug in the north.</li>'+
+'<li><strong>Don\'t stack every waterfall.</strong> By Day 3 you will have waterfall fatigue. It\'s real.</li>'+
+'<li><strong>Golden hour lasts about two hours in August.</strong> Plan your best photo location for the end of the day — that\'s why Stokksnes, Kirkjufell and Búðir sit where they do.</li>'+
+'<li><strong>Never fly a drone in national parks or near birds.</strong> Iceland is strict and enforcement has tightened.</li>'+
+'<li><strong>The most memorable moments won\'t be on this list.</strong> <em>No es solo el destino, son los momentos y las personas con quien los compartes.</em> Leave room for a fjord you weren\'t planning to stop at.</li>'+
+'</ul></div>';
+}
+
+/* ============================================================
+   12 · EVENTS + BOOT
+   ============================================================ */
+function setDay(n){
+  state.day=n; closeSheet();
+  drawChips(); drawSummary(); drawStopList(); drawBase(); fitDay();
+}
+function setTab(name){
+  state.tab=name;
+  var btns=el("nav").querySelectorAll("button");
+  for(var i=0;i<btns.length;i++)
+    btns[i].setAttribute("aria-selected",String(btns[i].getAttribute("data-tab")===name));
+  ["map","itin","book","pack","info"].forEach(function(k){ el("tab-"+k).hidden=(k!==name); });
+  window.scrollTo(0,0);
+  if(name==="map") drawPins();
+}
+document.addEventListener("click",function(e){
+  var t=e.target.closest?e.target.closest("[data-tab],[data-day],[data-acc],[data-chk],[data-f],[data-stop],[data-jump],[data-showmap],[data-reset]"):null;
+  if(!t) return;
+  if(t.hasAttribute("data-tab")){ setTab(t.getAttribute("data-tab")); return; }
+  if(t.hasAttribute("data-day")){ setDay(+t.getAttribute("data-day")); return; }
+  if(t.hasAttribute("data-f")){
+    state.filter=t.getAttribute("data-f");
+    var fb=document.querySelectorAll(".seg button");
+    for(var i=0;i<fb.length;i++)
+      fb[i].setAttribute("aria-pressed",String(fb[i].getAttribute("data-f")===state.filter));
+    closeSheet(); drawStopList(); drawPins(); return;
+  }
+  if(t.hasAttribute("data-stop")){ openSheet(state.day,+t.getAttribute("data-stop"),true); return; }
+  if(t.hasAttribute("data-jump")){
+    var q=t.getAttribute("data-jump").split(":");
+    setTab("map"); if(state.day!==+q[0]) setDay(+q[0]);
+    openSheet(+q[0],+q[1],true); return;
+  }
+  if(t.hasAttribute("data-showmap")){ setTab("map"); setDay(+t.getAttribute("data-showmap")); return; }
+  if(t.hasAttribute("data-acc")){
+    var k=t.getAttribute("data-acc"); state.open[k]=!state.open[k]; drawItin(); return;
+  }
+  if(t.hasAttribute("data-reset")){
+    var key=t.getAttribute("data-reset");
+    for(var c in state.checks) if(c.indexOf(key)===0) delete state.checks[c];
+    if(key==="book") drawBook(); else drawPack();
+    return;
+  }
+  if(t.hasAttribute("data-chk")){
+    var c2=t.getAttribute("data-chk");
+    state.checks[c2]=!state.checks[c2];
+    if(c2.indexOf("book")===0) drawBook(); else drawPack();
+    return;
+  }
+});
+el("prevDay").onclick=function(){ if(state.day>0) setDay(state.day-1); };
+el("nextDay").onclick=function(){ if(state.day<9) setDay(state.day+1); };
+
+function setHdrH(){
+  document.documentElement.style.setProperty("--hdrH", el("hdr").offsetHeight+"px");
+}
+setHdrH();
+drawChips(); drawSummary(); drawLegend(); drawStopList();
+drawItin(); drawBook(); drawPack(); drawInfo();
+drawBase(); fitDay();
+</script>
+</body>
+</html>
